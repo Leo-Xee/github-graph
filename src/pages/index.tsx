@@ -1,7 +1,9 @@
+import Title from "@/components/Title";
+
 function HomePage() {
   return (
     <div>
-      <h1>Hello Next.js</h1>
+      <Title title="GitHub Finder" />
     </div>
   );
 }
