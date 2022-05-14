@@ -2,7 +2,6 @@ import { css, Global } from "@emotion/react";
 
 const style = css`
   @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
-
   /* reset.css */
   * {
     padding: 0;
