@@ -15,9 +15,10 @@ const move = keyframes`
 `;
 
 const Heading = styled.h1`
-  margin: 5rem auto;
+  margin: 5rem auto 2rem;
   width: fit-content;
   padding: 0 1rem;
+  text-align: center;
   line-height: 1;
   font-size: 7rem;
   font-weight: 900;
@@ -31,8 +32,23 @@ const Heading = styled.h1`
   user-select: none;
   animation: ${move} 5s infinite alternate-reverse;
 `;
+
+const Description = styled.p`
+  padding: 0 2rem;
+  letter-spacing: -1px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  user-select: none;
+`;
+
 function Title({ title }: TitleProps) {
-  return <Heading>{title}</Heading>;
+  return (
+    <header>
+      <Heading>{title}</Heading>
+      <Description>Github Repository를 검색할 수 있고 Issues를 확인할 수 있습니다.</Description>
+    </header>
+  );
 }
 
 export default Title;
