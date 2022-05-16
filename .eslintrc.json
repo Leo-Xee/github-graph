@@ -30,7 +30,7 @@
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "import/extensions": [
-      "error",
+      2,
       {
         "tsx": "never",
         "ts": "never",
@@ -40,6 +40,12 @@
     ],
     "react/react-in-jsx-scope": 0,
     "react/jsx-props-no-spreading": 0,
-    "no-restricted-exports": 0
+    "no-restricted-exports": 0,
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ]
   }
 }
