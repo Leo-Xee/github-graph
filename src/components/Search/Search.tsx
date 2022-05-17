@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { FiSearch } from "react-icons/fi";
 
 import * as S from "./style";
@@ -17,10 +17,22 @@ function Search({ setKeyword }: SearchProps) {
     }
   };
 
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchHandler();
+    }
+  };
+
   return (
     <S.SearchBar>
       <label htmlFor="repo" />
-      <S.Input id="repo" type="text" placeholder="레포지토리명을 입력해주세요" ref={inputRef} />
+      <S.Input
+        id="repo"
+        type="text"
+        placeholder="키워드를 입력해주세요"
+        ref={inputRef}
+        onKeyDown={onKeyDownHandler}
+      />
       <S.Button type="button" onClick={searchHandler} aria-label="search">
         <FiSearch size={25} />
       </S.Button>

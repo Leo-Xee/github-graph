@@ -1,17 +1,23 @@
 import styled from "@emotion/styled";
 
 export const SearchBar = styled.div`
-  display: flex;
+  position: relative;
   align-items: center;
   margin: 4rem auto;
-  width: 350px;
+  width: 400px;
   height: 50px;
   border: 2px solid black;
   border-radius: 30px;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const Input = styled.input`
-  margin-left: 30px;
+  position: absolute;
+  top: 14px;
+  left: 25px;
   width: 250px;
   height: 20px;
   outline: none;
@@ -21,6 +27,8 @@ export const Input = styled.input`
   user-select: none;
 `;
 export const Button = styled.button`
-  margin-left: 20px;
+  position: absolute;
+  top: 3px;
+  right: 10px;
   padding: 8px;
 `;
