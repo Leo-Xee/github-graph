@@ -41,6 +41,7 @@
     "react/react-in-jsx-scope": 0,
     "react/jsx-props-no-spreading": 0,
     "no-restricted-exports": 0,
+    "react/no-array-index-key": 0,
     "jsx-a11y/label-has-associated-control": [
       2,
       {
