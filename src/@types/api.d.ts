@@ -1,7 +1,7 @@
 declare module "api" {
   interface RepoList {
     total_count: number;
-    incomplete_results: false;
+    incomplete_results: boolean;
     items: Repo[];
   }
 
@@ -28,12 +28,12 @@ declare module "api" {
       organizations_url: string;
       repos_url: string;
       events_url: string;
-      site_admin: true;
+      site_admin: boolean;
     };
-    private: false;
+    private: boolean;
     html_url: string;
     description: string;
-    fork: false;
+    fork: boolean;
     url: string;
     created_at: string;
     updated_at: string;
@@ -86,27 +86,31 @@ declare module "api" {
     teams_url: string;
     trees_url: string;
     clone_url: string;
-    mirror_url: string;
+    mirror_url: string | null;
     hooks_url: string;
     svn_url: string;
     forks: number;
     open_issues: number;
     watchers: number;
-    has_issues: true;
-    has_projects: true;
-    has_pages: true;
-    has_wiki: true;
-    has_downloads: true;
-    archived: true;
-    disabled: true;
+    has_issues: boolean;
+    has_projects: boolean;
+    has_pages: boolean;
+    has_wiki: boolean;
+    has_downloads: boolean;
+    archived: boolean;
+    disabled: boolean;
     visibility: string;
+    allow_forking: boolean;
     license: {
       key: string;
       name: string;
       url: string;
       spdx_id: string;
       node_id: string;
-      html_url: string;
     };
+    is_template: false;
+    topics: string[];
+    default_branch: string;
+    score: number;
   }
 }
