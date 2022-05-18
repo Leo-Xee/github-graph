@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Repo } from "api";
+import SkeletonList from "../SkeletonList";
 import ListItem from "./ListItem";
 
 type ListProps = {
@@ -15,14 +16,24 @@ const Section = styled.section`
   padding: 0 10px 30px;
 `;
 
+const Message = styled.div`
+  margin-top: 20%;
+  letter-spacing: -1px;
+  font-size: 2rem;
+`;
+
 function List({ repoList, isLoading }: ListProps) {
   return (
     <Section>
-      {repoList && repoList.length === 0 && <div>해당 키워드로 검색한 내용이 없습니다.</div>}
       {isLoading ? (
-        <div>로딩 중</div>
+        <div data-testid="skeleton">
+          <SkeletonList />
+        </div>
       ) : (
         repoList && repoList.map((repo) => <ListItem key={repo.id} repo={repo} />)
+      )}
+      {repoList && repoList.length === 0 && (
+        <Message>해당 키워드로 검색한 내용이 없습니다.</Message>
       )}
     </Section>
   );

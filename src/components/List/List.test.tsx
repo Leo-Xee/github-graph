@@ -32,14 +32,14 @@ describe("<List />", () => {
     it("repoList가 빈 배열인 경우에도 로딩 중임을 보여준다.", () => {
       render(<List repoList={[]} isLoading />);
 
-      const loading = screen.getByText(/로딩 중/);
+      const loading = screen.getByTestId(/skeleton/i);
       expect(loading).toBeInTheDocument();
     });
 
     it("repoList가 빈 배열 아닌 경우에도 로딩 중임을 보여준다.", () => {
       render(<List repoList={repoListData} isLoading />);
 
-      const loading = screen.getByText(/로딩 중/);
+      const loading = screen.getByTestId(/skeleton/i);
       expect(loading).toBeInTheDocument();
     });
   });
