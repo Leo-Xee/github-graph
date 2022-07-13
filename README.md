@@ -1,8 +1,13 @@
-# GitHub Issue Finder
+# Github Graph
 
-# Stack
+## 🔥 소개
 
-- Next.js(12+)
-- Typescript
-- Jest, Testing-Library
-- ESLint(Airbnb), Prettier
+## 📚 기술 스택
+
+## 🌲 디렉터리 구조
+
+## ⚙️ 주요 내용
+
+### ✅ 내용 1
+
+## ⁉️ 트러블 슈팅

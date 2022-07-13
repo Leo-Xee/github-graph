@@ -4,7 +4,7 @@
     "browser": true,
     "es6": true,
     "node": true,
-    "jest": true
+    "jest": true // 추가
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -15,14 +15,13 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["jest.*.js"],
+  "ignorePatterns": ["webpack.config.js", "jest.config.ts", "setupTests.ts"],
   "extends": [
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@next/next/recommended",
     "plugin:prettier/recommended",
     "plugin:jest/recommended"
   ],
@@ -30,22 +29,12 @@
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "import/extensions": [
-      2,
+      "error",
       {
         "tsx": "never",
         "ts": "never",
         "js": "never",
         "jsx": "never"
-      }
-    ],
-    "react/react-in-jsx-scope": 0,
-    "react/jsx-props-no-spreading": 0,
-    "no-restricted-exports": 0,
-    "react/no-array-index-key": 0,
-    "jsx-a11y/label-has-associated-control": [
-      2,
-      {
-        "labelAttributes": ["htmlFor"]
       }
     ]
   }
