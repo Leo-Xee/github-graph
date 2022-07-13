@@ -2,6 +2,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ForkCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const path = require("path");
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 module.exports = {
   mode: "development",
@@ -25,6 +29,12 @@ module.exports = {
       ],
     }),
     new ForkCheckerWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      process: "process/browser.js",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+    }),
   ],
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
@@ -66,11 +76,9 @@ module.exports = {
   devServer: {
     client: {
       overlay: true,
-      progress: true,
     },
     compress: true,
     hot: true,
-    open: true,
     port: 3000,
   },
 };
