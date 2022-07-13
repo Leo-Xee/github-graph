@@ -15,7 +15,12 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["webpack.config.js", "jest.config.ts", "setupTests.ts"],
+  "ignorePatterns": [
+    "webpack.config.js",
+    "jest.config.ts",
+    "setupTests.ts",
+    "apollo.ts"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
