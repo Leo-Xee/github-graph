@@ -1,0 +1,9 @@
+query userRepos($username: String!) {
+  user(login: $username) {
+    id
+    login
+    name
+    bio
+    avatarUrl(size: 100)
+  }
+}
