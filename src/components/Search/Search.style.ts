@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  position: absolute;
+  position: relative;
   top: 20px;
   left: 30px;
   width: 350px;
-  height: 50px;
-  padding: 0 10px 0 20px;
+  height: 55px;
+  padding: 0 0 0 20px;
   background-color: ${({ theme }) => theme["search-bg"]};
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
@@ -18,11 +18,11 @@ export const Form = styled.form`
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const Lable = styled.label`
-  flex: 7.5;
+  flex: 7;
   height: 30px;
 `;
 
@@ -37,16 +37,17 @@ export const Input = styled.input`
 
 export const ButtonContainer = styled.span`
   display: flex;
+  align-items: center;
   justify-content: end;
-  flex: 2.5;
+  flex: 3;
+  /* border: 1px solid red; */
 `;
 
 export const Button = styled.button`
   padding: 0 10px;
 
-  &:last-child {
-    border-left: ${({ theme }) => theme["search-border"]};
-    padding-right: 0;
+  &:first-of-type {
+    border-right: ${({ theme }) => theme["search-border"]};
   }
 
   .search,
@@ -57,5 +58,47 @@ export const Button = styled.button`
   .search_active,
   .clean:hover {
     color: ${({ theme }) => theme["icon-hover"]};
+  }
+`;
+
+export const Recommandation = styled.div`
+  position: absolute;
+  left: 0px;
+  width: 350px;
+  background-color: ${({ theme }) => theme["search-bg"]};
+  border: ${({ theme }) => theme["search-border"]};
+  border-radius: 0 0 10px 10px;
+  box-shadow: ${({ theme }) => theme["box-shadow"]};
+`;
+
+export const SearchItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 0 8px 20px;
+  cursor: pointer;
+
+  & img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme["image-bg"]};
+  }
+
+  & p {
+    letter-spacing: -1px;
+    font-size: 1.8rem;
+    & span {
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme["font-light"]};
+    }
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme["search-hover"]};
+  }
+
+  &:last-child {
+    border-radius: 0 0 10px 10px;
   }
 `;

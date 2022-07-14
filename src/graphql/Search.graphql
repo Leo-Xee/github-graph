@@ -5,7 +5,8 @@ query searchUsers($keyword: String!) {
       ... on User {
         id
         login
-        avatarUrl(size: 30)
+        name
+        avatarUrl(size: 100)
       }
     }
   }
