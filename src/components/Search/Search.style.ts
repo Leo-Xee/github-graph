@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+type ContainerProps = {
+  isInputEmpty: boolean;
+};
+
+export const Container = styled.section<ContainerProps>`
   position: relative;
   top: 20px;
   left: 30px;
@@ -9,8 +13,8 @@ export const Container = styled.div`
   padding: 0 0 0 20px;
   background-color: ${({ theme }) => theme["search-bg"]};
   border: ${({ theme }) => theme["search-border"]};
-  border-radius: 10px;
   box-shadow: ${({ theme }) => theme["box-shadow"]};
+  border-radius: ${({ isInputEmpty }) => (isInputEmpty ? `10px` : `10px 10px 0 0`)};
 `;
 
 export const Form = styled.form`
@@ -63,7 +67,7 @@ export const Button = styled.button`
 
 export const Recommandation = styled.div`
   position: absolute;
-  left: 0px;
+  left: -1px;
   width: 350px;
   background-color: ${({ theme }) => theme["search-bg"]};
   border: ${({ theme }) => theme["search-border"]};

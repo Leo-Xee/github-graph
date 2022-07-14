@@ -30,11 +30,14 @@ function Search() {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setInput("");
     console.log("submit");
   };
 
+  const isInputEmpty = input.length === 0;
+
   return (
-    <S.Container>
+    <S.Container isInputEmpty={isInputEmpty}>
       <S.Form onSubmit={onSubmitHandler}>
         <S.Lable>
           <S.Input
@@ -45,8 +48,8 @@ function Search() {
           />
         </S.Lable>
         <S.ButtonContainer>
-          <S.Button type="submit" disabled={!input}>
-            <BiSearch size={25} className={!input ? "search" : "search_active"} />
+          <S.Button type="submit" disabled={isInputEmpty}>
+            <BiSearch size={25} className={isInputEmpty ? "search" : "search_active"} />
           </S.Button>
           {loading ? (
             <Spinner size={20} />
