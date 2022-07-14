@@ -19,7 +19,8 @@
     "webpack.config.js",
     "jest.config.ts",
     "setupTests.ts",
-    "apollo.ts"
+    "apollo.ts",
+    "generated.ts"
   ],
   "extends": [
     "airbnb",
@@ -48,6 +49,9 @@
       {
         "labelAttributes": ["htmlFor"]
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": 0,
+    "@typescript-eslint/no-floating-promises": 0,
+    "no-underscore-dangle": 0
   }
 }
