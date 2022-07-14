@@ -41,6 +41,7 @@
         "js": "never",
         "jsx": "never"
       }
-    ]
+    ],
+    "no-restricted-exports": 0
   }
 }
