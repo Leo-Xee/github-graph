@@ -12,3 +12,5 @@ generates:
       - typescript-react-apollo
     config:
       withHooks: true
+      scalars:
+        URI: string
