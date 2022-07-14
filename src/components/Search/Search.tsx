@@ -1,11 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
+import { useSearchUsersQuery } from "@/graphql/generated";
 
 import * as S from "./Search.style";
 
 function Search() {
   const [input, setInput] = useState("");
+  const { data } = useSearchUsersQuery({ variables: { keyword: input } });
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -13,7 +15,7 @@ function Search() {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
+    console.log(data);
   };
 
   return (

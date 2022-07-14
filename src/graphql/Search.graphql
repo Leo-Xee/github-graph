@@ -1,0 +1,12 @@
+query searchUsers($keyword: String!) {
+  search(type: USER, query: $keyword, first: 5) {
+    nodes {
+      __typename
+      ... on User {
+        id
+        login
+        avatarUrl(size: 30)
+      }
+    }
+  }
+}
