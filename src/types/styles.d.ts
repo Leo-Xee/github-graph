@@ -2,8 +2,12 @@ import "@emotion/react";
 
 declare module "@emotion/react" {
   export interface Theme {
-    light: {
-      primary: string;
-    };
+    background: string;
+    font: string;
+    "search-bg": string;
+    "search-border": string;
+    "box-shadow": string;
+    icon: string;
+    "icon-hover": string;
   }
 }

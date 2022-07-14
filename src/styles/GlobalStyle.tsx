@@ -1,7 +1,7 @@
 import React from "react";
-import { css, Global } from "@emotion/react";
+import { css, Global, Theme } from "@emotion/react";
 
-const style = css`
+const style = (theme: Theme) => css`
   /* reset.css */
   * {
     padding: 0;
@@ -30,6 +30,8 @@ const style = css`
     width: 100%;
     height: 100%;
     font-size: 62.5%;
+    background-color: ${theme.background};
+    color: ${theme.font};
   }
   img,
   picture,
