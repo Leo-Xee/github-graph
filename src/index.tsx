@@ -15,10 +15,13 @@ const mode = "light";
 
 const root = ReactDOM.createRoot(element);
 root.render(
-  <ApolloProvider client={client}>
-    <ThemeProvider theme={theme[mode]}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
-  </ApolloProvider>,
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme[mode]}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </ApolloProvider>
+    ,
+  </React.StrictMode>,
 );
