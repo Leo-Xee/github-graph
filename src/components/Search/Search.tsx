@@ -2,13 +2,18 @@ import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import _ from "lodash";
-import { useSearchUsersLazyQuery } from "@/graphql/generated";
 
+import { useSearchUsersLazyQuery } from "@/graphql/generated";
 import * as S from "./Search.style";
 import Spinner from "../Spinner";
 
-function Search() {
+type SearchProps = {
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function Search({ setUsername }: SearchProps) {
   const [input, setInput] = useState("");
+  const [isActive, setIsActive] = useState(false);
   const [searchUser, { data, loading }] = useSearchUsersLazyQuery({
     variables: { keyword: input },
   });
@@ -26,18 +31,30 @@ function Search() {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     debounceFn(e.target.value);
+    setIsActive(true);
   };
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setInput("");
-    console.log("submit");
+    setUsername(input);
+    setIsActive(false);
   };
 
-  const isInputEmpty = input.length === 0;
+  const onClickHandler = (username: string) => {
+    setInput(username);
+    setUsername(username);
+    setIsActive(false);
+  };
+
+  const onCloseHanlder = () => {
+    setInput("");
+    setUsername("");
+  };
+
+  const isRecommandationActive = input.length !== 0 && isActive;
 
   return (
-    <S.Container isInputEmpty={isInputEmpty}>
+    <S.Container isActive={isRecommandationActive}>
       <S.Form onSubmit={onSubmitHandler}>
         <S.Lable>
           <S.Input
@@ -48,25 +65,25 @@ function Search() {
           />
         </S.Lable>
         <S.ButtonContainer>
-          <S.Button type="submit" disabled={isInputEmpty}>
-            <BiSearch size={25} className={isInputEmpty ? "search" : "search_active"} />
+          <S.Button type="submit" disabled={input.length === 0}>
+            <BiSearch size={25} className={isRecommandationActive ? "search_active" : "search"} />
           </S.Button>
           {loading ? (
             <Spinner size={20} />
           ) : (
-            <S.Button type="button" onClick={() => setInput("")}>
+            <S.Button type="button" onClick={() => onCloseHanlder()}>
               <IoMdClose size={25} className="clean" />
             </S.Button>
           )}
         </S.ButtonContainer>
       </S.Form>
-      {input && (
+      {isRecommandationActive && (
         <S.Recommandation>
           <ul>
             {data?.search.nodes?.map((value) => {
               if (value?.__typename === "User") {
                 return (
-                  <S.SearchItem key={value.id}>
+                  <S.SearchItem key={value.id} onClick={() => onClickHandler(value.login)}>
                     <img src={value.avatarUrl} alt="Avatar" />
                     <p>
                       {value.login} {value.name && <span>({value.name})</span>}

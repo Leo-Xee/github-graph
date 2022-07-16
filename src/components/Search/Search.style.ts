@@ -1,20 +1,21 @@
 import styled from "@emotion/styled";
 
 type ContainerProps = {
-  isInputEmpty: boolean;
+  isActive: boolean;
 };
 
 export const Container = styled.section<ContainerProps>`
   position: relative;
   top: 20px;
-  left: 30px;
+  left: 20px;
+  z-index: 5;
   width: 350px;
   height: 55px;
   padding: 0 0 0 20px;
   background-color: ${({ theme }) => theme["search-bg"]};
   border: ${({ theme }) => theme["search-border"]};
   box-shadow: ${({ theme }) => theme["box-shadow"]};
-  border-radius: ${({ isInputEmpty }) => (isInputEmpty ? `10px` : `10px 10px 0 0`)};
+  border-radius: ${({ isActive }) => (isActive ? `10px 10px 0 0` : `10px`)};
 `;
 
 export const Form = styled.form`
