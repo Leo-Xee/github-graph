@@ -54,7 +54,8 @@ const style = (theme: Theme) => css`
     border-collapse: collapse;
   }
   ol,
-  ul {
+  ul,
+  li {
     list-style: none;
   }
 `;
