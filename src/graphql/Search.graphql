@@ -11,3 +11,27 @@ query searchUsers($keyword: String!) {
     }
   }
 }
+
+query getUser($username: String!) {
+  user(login: $username) {
+    login
+    name
+    email
+    websiteUrl
+    company
+    avatarUrl
+    location
+    following {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    repositories {
+      totalCount
+    }
+    starredRepositories {
+      totalCount
+    }
+  }
+}
