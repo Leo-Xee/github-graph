@@ -67,7 +67,24 @@ function Board({ username }: BoardProps) {
               </ul>
             </S.Info>
           </S.Profile>
-          <div>Tab</div>
+          <S.Tab>
+            <li>
+              <div>{data?.user?.following.totalCount}</div>
+              <div>followings</div>
+            </li>
+            <li>
+              <div>{data?.user?.followers.totalCount}</div>
+              <div>followers</div>
+            </li>
+            <li>
+              <div>{data?.user?.repositories.totalCount}</div>
+              <div>repositories</div>
+            </li>
+            <li>
+              <div>{data?.user?.starredRepositories.totalCount}</div>
+              <div>stars</div>
+            </li>
+          </S.Tab>
         </div>
       )}
     </S.Container>
