@@ -2,16 +2,14 @@ import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 import { useSearchUsersLazyQuery } from "@/graphql/generated";
 import * as S from "./Search.style";
 import Spinner from "../Spinner";
 
-type SearchProps = {
-  setUsername: React.Dispatch<React.SetStateAction<string>>;
-};
-
-function Search({ setUsername }: SearchProps) {
+function Search() {
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [searchUser, { data, loading }] = useSearchUsersLazyQuery({
@@ -36,19 +34,19 @@ function Search({ setUsername }: SearchProps) {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setUsername(input);
     setIsActive(false);
+    navigate(`/users/${input}`);
   };
 
   const onClickHandler = (username: string) => {
     setInput(username);
-    setUsername(username);
     setIsActive(false);
+    navigate(`/users/${username}`);
   };
 
   const onCloseHanlder = () => {
     setInput("");
-    setUsername("");
+    navigate("/");
   };
 
   const isRecommandationActive = input.length !== 0 && isActive;

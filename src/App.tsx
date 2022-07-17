@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Search from "@/components/Search";
-import Board from "@/components/Board";
-import Graph from "@/components/Graph";
+import Home from "@/pages/Home";
+import UserDetail from "@/pages/UserDetail";
+import NotFound from "@/pages/NotFound";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [tab, setTab] = useState("");
-
-  console.log("App", username);
-
   return (
-    <main>
-      <Search setUsername={setUsername} />
-      {username && <Board username={username} />}
-      {/* <Graph /> */}
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users/:username" element={<UserDetail />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
