@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
+import React, { useState, ChangeEvent, FormEvent, useCallback, useEffect } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import _ from "lodash";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useSearchUsersLazyQuery } from "@/graphql/generated";
 import * as S from "./Search.style";
@@ -10,17 +10,25 @@ import Spinner from "../Spinner";
 
 function Search() {
   const navigate = useNavigate();
+  const { username } = useParams();
   const [input, setInput] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [searchUser, { data, loading }] = useSearchUsersLazyQuery({
     variables: { keyword: input },
   });
 
+  useEffect(() => {
+    if (username) {
+      setInput(username);
+    }
+  }, []);
+
   const debouncer = useCallback(_.debounce(searchUser, 500), []);
 
   const debounceFn = async (value: string) => {
     try {
-      await debouncer({ variables: { keyword: value } });
+      const a = await debouncer({ variables: { keyword: value } });
+      console.log("db", a);
     } catch (err) {
       alert("에러가 발생했습니다. 잠시후 다시 이용해주세요.");
     }
@@ -28,20 +36,21 @@ function Search() {
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    debounceFn(e.target.value);
     setIsActive(true);
+    debounceFn(e.target.value);
   };
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setInput(input);
     setIsActive(false);
     navigate(`/users/${input}`);
   };
 
-  const onClickHandler = (username: string) => {
-    setInput(username);
+  const onClickHandler = (name: string) => {
+    setInput(name);
     setIsActive(false);
-    navigate(`/users/${username}`);
+    navigate(`/users/${name}`);
   };
 
   const onCloseHanlder = () => {
@@ -63,13 +72,17 @@ function Search() {
           />
         </S.Lable>
         <S.ButtonContainer>
-          <S.Button type="submit" disabled={input.length === 0}>
+          <S.Button type="submit" aria-label="유저 검색" disabled={input.length === 0}>
             <BiSearch size={25} className={isRecommandationActive ? "search_active" : "search"} />
           </S.Button>
           {loading ? (
             <Spinner size={20} />
           ) : (
-            <S.Button type="button" onClick={() => onCloseHanlder()}>
+            <S.Button
+              type="button"
+              aria-label="입력한 유저명 삭제"
+              onClick={() => onCloseHanlder()}
+            >
               <IoMdClose size={25} className="clean" />
             </S.Button>
           )}

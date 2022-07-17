@@ -26,7 +26,7 @@ const Spin = styled.div<SpinnerProps>`
 `;
 
 function Spinner({ size }: SpinnerProps) {
-  return <Spin size={size} />;
+  return <Spin size={size} aria-label="로딩 중" />;
 }
 
 export default Spinner;
