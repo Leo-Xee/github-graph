@@ -5,6 +5,7 @@ import { AiOutlineMail, AiOutlineLink } from "react-icons/ai";
 
 import * as S from "./Profile.style";
 import { GetUserQuery } from "@/graphql/generated";
+import SkeletonProfile from "../common/Skeleton/SkeletonProfile";
 
 type BoardProps = {
   userData: GetUserQuery | undefined;
@@ -12,10 +13,12 @@ type BoardProps = {
 };
 
 function Board({ userData, loading }: BoardProps) {
+  console.log("userData", userData, loading);
+
   return (
     <S.Container>
-      {loading ? (
-        <div>Loading...</div>
+      {loading && !userData ? (
+        <SkeletonProfile />
       ) : (
         <S.Profile>
           <S.ImageWrapper>
