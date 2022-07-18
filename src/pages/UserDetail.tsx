@@ -6,6 +6,7 @@ import { useGetUserLazyQuery } from "@/graphql/generated";
 import Profile from "@/components/Profile";
 import Search from "@/components/Search";
 import Tab from "@/components/Tab";
+import List from "@/components/List";
 
 export const Board = styled.section`
   display: flex;
@@ -15,32 +16,40 @@ export const Board = styled.section`
   top: 0;
   left: 0;
   z-index: 1;
-  width: 390px;
+  width: 410px;
   height: 100vh;
   padding-top: 90px;
   background-color: ${({ theme }) => theme["search-bg"]};
   box-shadow: ${({ theme }) => theme["box-shadow"]};
+  overflow-y: scroll;
 `;
 
 function UserDetail() {
   const { username } = useParams();
-  const [getUser, { data, loading }] = useGetUserLazyQuery({
+  const [getUser, { data, loading, error }] = useGetUserLazyQuery({
     variables: { username: username || "" },
   });
 
   useEffect(() => {
     if (username) {
       getUser();
-      console.log("fetch");
     }
   }, [username]);
+  console.log(username);
 
   return (
     <main>
       <Search />
       <Board>
-        {username && <Profile userData={data} loading={loading} />}
-        {username && <Tab userData={data} loading={loading} />}
+        {error ? (
+          <div>존재하지 않는 유저입니다.</div>
+        ) : (
+          <>
+            <Profile userData={data} loading={loading} />
+            <Tab userData={data} loading={loading} />
+            <List />
+          </>
+        )}
       </Board>
     </main>
   );

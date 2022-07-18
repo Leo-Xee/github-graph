@@ -9,7 +9,7 @@ export const Container = styled.section<ContainerProps>`
   top: 20px;
   left: 20px;
   z-index: 5;
-  width: 350px;
+  width: 370px;
   height: 55px;
   padding: 0 0 0 20px;
   background-color: ${({ theme }) => theme["search-bg"]};
@@ -69,7 +69,7 @@ export const Button = styled.button`
 export const Recommandation = styled.div`
   position: absolute;
   left: -1px;
-  width: 350px;
+  width: 370px;
   background-color: ${({ theme }) => theme["search-bg"]};
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 0 0 10px 10px;
