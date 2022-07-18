@@ -1,25 +1,13 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 390px;
-  height: 100vh;
-  padding-top: 90px;
-  background-color: ${({ theme }) => theme["search-bg"]};
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
+export const Container = styled.div`
+  width: 90%;
 `;
 
 export const Profile = styled.div`
   display: flex;
-  gap: 15px;
   padding: 15px;
-  width: 350px;
+  gap: 15px;
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
   box-shadow: ${({ theme }) => theme["box-shadow"]};
@@ -72,30 +60,6 @@ export const Info = styled.div`
         text-decoration: underline;
         color: #228be6;
       }
-    }
-  }
-`;
-
-export const Tab = styled.div`
-  margin-top: 15px;
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-  border: ${({ theme }) => theme["search-border"]};
-  border-radius: 10px;
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
-
-  & li {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.4rem;
-    cursor: pointer;
-
-    & div:first-of-type {
-      font-size: 1.8rem;
-      font-weight: 900;
     }
   }
 `;
