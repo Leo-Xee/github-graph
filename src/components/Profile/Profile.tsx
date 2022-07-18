@@ -13,11 +13,9 @@ type BoardProps = {
 };
 
 function Board({ userData, loading }: BoardProps) {
-  console.log("userData", userData, loading);
-
   return (
     <S.Container>
-      {loading && !userData ? (
+      {loading || !userData ? (
         <SkeletonProfile />
       ) : (
         <S.Profile>

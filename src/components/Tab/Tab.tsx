@@ -12,7 +12,7 @@ type TabProps = {
 function Tab({ userData, loading }: TabProps) {
   return (
     <S.Container>
-      {loading ? (
+      {loading || !userData ? (
         <SkeletonTab />
       ) : (
         <>
