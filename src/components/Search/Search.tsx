@@ -90,15 +90,21 @@ function Search() {
       </S.Form>
       {isRecommandationActive && (
         <S.Recommandation>
-          <ul>
+          <ul aria-label="검색 추천리스트">
             {data?.search.nodes?.map((value) => {
               if (value?.__typename === "User") {
                 return (
-                  <S.SearchItem key={value.id} onClick={() => onClickHandler(value.login)}>
-                    <img src={value.avatarUrl} alt="Avatar" />
-                    <p>
-                      {value.login} {value.name && <span>({value.name})</span>}
-                    </p>
+                  <S.SearchItem key={value.id}>
+                    <button
+                      type="button"
+                      aria-label={`추천된 ${value.login} 검색 `}
+                      onClick={() => onClickHandler(value.login)}
+                    >
+                      <img src={value.avatarUrl} alt="Avatar" />
+                      <p>
+                        {value.login} {value.name && <span>({value.name})</span>}
+                      </p>
+                    </button>
                   </S.SearchItem>
                 );
               }

@@ -77,33 +77,36 @@ export const Recommandation = styled.div`
 `;
 
 export const SearchItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 8px 0 8px 20px;
-  cursor: pointer;
+  & button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 0 8px 20px;
+    cursor: pointer;
 
-  & img {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: ${({ theme }) => theme["image-bg"]};
-  }
-
-  & p {
-    letter-spacing: -1px;
-    font-size: 1.8rem;
-    & span {
-      font-size: 1.6rem;
-      color: ${({ theme }) => theme["font-light"]};
+    & img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: ${({ theme }) => theme["image-bg"]};
     }
-  }
 
-  &:hover {
-    background-color: ${({ theme }) => theme["search-hover"]};
-  }
+    & p {
+      letter-spacing: -1px;
+      font-size: 1.8rem;
+      & span {
+        font-size: 1.6rem;
+        color: ${({ theme }) => theme["font-light"]};
+      }
+    }
 
-  &:last-child {
-    border-radius: 0 0 10px 10px;
+    &:hover {
+      background-color: ${({ theme }) => theme["search-hover"]};
+    }
+
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
   }
 `;
