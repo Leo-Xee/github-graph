@@ -3,6 +3,7 @@ import { GetUserQuery } from "@/graphql/generated";
 
 import * as S from "./Tab.style";
 import SkeletonTab from "../common/Skeleton/SkeletonTab";
+import useStore from "@/hooks/useStore";
 
 type TabProps = {
   userData: GetUserQuery | undefined;
@@ -10,25 +11,27 @@ type TabProps = {
 };
 
 function Tab({ userData, loading }: TabProps) {
+  const { tab, changeTab } = useStore();
+
   return (
     <S.Container>
       {loading || !userData ? (
         <SkeletonTab />
       ) : (
         <>
-          <S.Tab>
+          <S.Tab isSelected={tab === "followings"} onClick={() => changeTab("followings")}>
             <div>{userData?.user?.following.totalCount}</div>
             <div>followings</div>
           </S.Tab>
-          <S.Tab>
+          <S.Tab isSelected={tab === "followers"} onClick={() => changeTab("followers")}>
             <div>{userData?.user?.followers.totalCount}</div>
             <div>followers</div>
           </S.Tab>
-          <S.Tab>
+          <S.Tab isSelected={tab === "repositories"} onClick={() => changeTab("repositories")}>
             <div>{userData?.user?.repositories.totalCount}</div>
             <div>repositories</div>
           </S.Tab>
-          <S.Tab>
+          <S.Tab isSelected={tab === "stars"} onClick={() => changeTab("stars")}>
             <div>{userData?.user?.starredRepositories.totalCount}</div>
             <div>stars</div>
           </S.Tab>
