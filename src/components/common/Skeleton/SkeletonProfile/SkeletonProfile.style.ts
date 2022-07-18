@@ -46,11 +46,13 @@ export const Info = styled.div`
 export const Title = styled.div`
   width: 150px;
   height: 20px;
+  border-radius: 4px;
   animation: ${gradient} 1.5s infinite ease-out;
 `;
 
 export const List = styled.div`
   width: 100px;
   height: 18px;
+  border-radius: 4px;
   animation: ${gradient} 1.5s infinite ease-out;
 `;
