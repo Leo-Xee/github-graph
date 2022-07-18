@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useSearchUsersLazyQuery } from "@/graphql/generated";
 import * as S from "./Search.style";
-import Spinner from "../Spinner";
+import Spinner from "@/components/common/Spinner";
 
 function Search() {
   const navigate = useNavigate();
