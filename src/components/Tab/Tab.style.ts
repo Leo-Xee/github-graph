@@ -22,7 +22,7 @@ export const Tab = styled.li<TabProps>`
   font-size: 1.4rem;
   cursor: pointer;
   padding-bottom: 5px;
-  border-bottom: ${({ isSelected }) => isSelected && `3px solid #1a73e8`};
+  border-bottom: ${({ isSelected, theme }) => isSelected && `3px solid ${theme["icon-hover"]}`};
 
   & div:first-of-type {
     font-size: 1.8rem;
