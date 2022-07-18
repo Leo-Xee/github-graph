@@ -8,7 +8,6 @@ export const Container = styled.div`
   gap: 10px;
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
 `;
 
 export const Tab = styled.li`

@@ -19,7 +19,6 @@ export const Container = styled.div`
   gap: 15px;
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
 `;
 
 export const ImageWrapper = styled.div`

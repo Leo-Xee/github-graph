@@ -11,7 +11,7 @@ export const Tab = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 5px;
   align-items: center;
   font-size: 1.4rem;
 `;

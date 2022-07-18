@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   width: 90%;
+  overflow-y: scroll;
 `;
 
 export const Profile = styled.div`
@@ -10,8 +11,6 @@ export const Profile = styled.div`
   gap: 15px;
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
-  overflow-y: scroll;
 `;
 
 export const ImageWrapper = styled.div`
