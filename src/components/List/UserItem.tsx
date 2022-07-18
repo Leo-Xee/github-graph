@@ -12,30 +12,32 @@ type UserItemProps = {
 function UserItem({ user }: UserItemProps) {
   return (
     <S.Container>
-      <S.ImageWrapper>
-        <img src={user?.avatarUrl} alt="Avatar" />
-      </S.ImageWrapper>
-      <S.Info>
-        <h2>
-          {user?.login}
-          <span> ({user?.name})</span>
-        </h2>
-        <p>{user?.bio}</p>
-        <S.InfoList>
-          {user?.company && (
-            <li>
-              <BiBuildings size={18} />
-              {user?.company}
-            </li>
-          )}
-          {user?.location && (
-            <li>
-              <GoLocation size={16} />
-              {user?.location}
-            </li>
-          )}
-        </S.InfoList>
-      </S.Info>
+      <a href={`https://github.com/${user?.login}`} target="_blank" rel="noreferrer noopener">
+        <S.ImageWrapper>
+          <img src={user?.avatarUrl} alt="Avatar" />
+        </S.ImageWrapper>
+        <S.Info>
+          <h2>
+            {user?.login}
+            <span> ({user?.name})</span>
+          </h2>
+          <p>{user?.bio}</p>
+          <S.InfoList>
+            {user?.company && (
+              <li>
+                <BiBuildings size={18} />
+                {user?.company}
+              </li>
+            )}
+            {user?.location && (
+              <li>
+                <GoLocation size={16} />
+                {user?.location}
+              </li>
+            )}
+          </S.InfoList>
+        </S.Info>
+      </a>
     </S.Container>
   );
 }

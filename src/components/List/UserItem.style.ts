@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  display: flex;
-  padding: 15px;
-  gap: 15px;
-  cursor: pointer;
+  & a {
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+    cursor: pointer;
+  }
 
   & + & {
     border-top: ${({ theme }) => theme["search-border"]};

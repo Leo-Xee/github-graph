@@ -24,8 +24,14 @@ function Board({ userData, loading }: BoardProps) {
           </S.ImageWrapper>
           <S.Info>
             <h1>
-              {userData?.user?.login}
-              <span> ({userData?.user?.name})</span>
+              <a
+                href={`https://github.com/${userData?.user?.login}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <span>{userData?.user?.login}</span>
+                <span> ({userData?.user?.name})</span>
+              </a>
             </h1>
             <ul>
               {userData?.user?.company && (

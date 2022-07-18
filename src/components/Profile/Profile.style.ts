@@ -34,13 +34,22 @@ export const Info = styled.div`
   flex: 7.5;
   letter-spacing: -1px;
 
-  & h1 {
-    font-size: 2rem;
+  & h1 a {
+    cursor: pointer;
     font-weight: 900;
 
     & span {
       font-size: 1.6rem;
       color: ${({ theme }) => theme["font-light"]};
+    }
+
+    & span:first-of-type {
+      font-size: 2rem;
+      color: ${({ theme }) => theme.font};
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 
