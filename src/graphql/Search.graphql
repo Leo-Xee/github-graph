@@ -19,7 +19,7 @@ query getUser($username: String!) {
     email
     websiteUrl
     company
-    avatarUrl
+    avatarUrl(size: 200)
     location
     following {
       totalCount
@@ -32,6 +32,36 @@ query getUser($username: String!) {
     }
     starredRepositories {
       totalCount
+    }
+  }
+}
+
+query getFollowings($username: String!) {
+  user(login: $username) {
+    following(first: 50) {
+      nodes {
+        login
+        name
+        bio
+        avatarUrl(size: 150)
+        company
+        location
+      }
+    }
+  }
+}
+
+query getFollowers($username: String!) {
+  user(login: $username) {
+    followers(first: 50) {
+      nodes {
+        login
+        name
+        bio
+        avatarUrl(size: 150)
+        company
+        location
+      }
     }
   }
 }
