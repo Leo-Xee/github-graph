@@ -18,6 +18,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
         search: {
           nodes: [
             {
+              __typename: "User",
               id: "1",
               login: "Leo-Xee",
               name: "Jangmin Lee",
@@ -31,13 +32,13 @@ const mocks: ReadonlyArray<MockedResponse> = [
   },
 ];
 
-const setup = () => {
-  const navigate = jest.fn();
-  jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useNavigate: () => navigate,
-  }));
+const navigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => navigate,
+}));
 
+const setup = () => {
   const result = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <Search />
@@ -45,12 +46,12 @@ const setup = () => {
     { wrapper: BrowserRouter },
   );
 
-  return { result, navigate };
+  return result;
 };
 
 describe("<Search />", () => {
   it("검색창과 기본 버튼들을 보여준다.", () => {
-    const { result } = setup();
+    const result = setup();
 
     expect(result.getByRole("button", { name: /유저 검색/ })).toBeInTheDocument();
     expect(result.getByRole("button", { name: /입력한 유저명 삭제/ })).toBeInTheDocument();
@@ -58,23 +59,34 @@ describe("<Search />", () => {
   });
 
   it("유저명을 입력하면 로딩 상태를 보여준 후에 검색 추천리스트를 보여준다.", async () => {
-    const { result } = setup();
+    const result = setup();
 
     fireEvent.change(result.getByPlaceholderText(/Github 유저를 검색해보세요/), {
       target: { value: "leo-xee" },
     });
     expect(await result.findByLabelText(/로딩 중/)).toBeInTheDocument();
-    expect(await result.findByRole("list")).toBeInTheDocument();
+    expect(await result.findByRole("list", { name: /검색 추천리스트/ })).toBeInTheDocument();
   });
 
   it("유저명을 입력하고 submit하면 해당 유저의 상세페이지로 이동한다.", async () => {
-    const { result, navigate } = setup();
+    const result = setup();
 
     fireEvent.change(result.getByPlaceholderText(/Github 유저를 검색해보세요/), {
       target: { value: "leo-xee" },
     });
     fireEvent.click(result.getByRole("button", { name: /유저 검색/ }));
 
+    await waitFor(() => expect(navigate).toBeCalledWith("/users/leo-xee"));
+  });
+
+  it("유저명을 입력하고 추천 리스트 중 하나를 클릭하면 유저의 상세페이지로 이동한다.", async () => {
+    const result = setup();
+
+    fireEvent.change(result.getByPlaceholderText(/Github 유저를 검색해보세요/), {
+      target: { value: "leo-xee" },
+    });
+    const list = await result.findAllByRole("button", { name: /추천된/ });
+    fireEvent.click(list[0]);
     await waitFor(() => expect(navigate).toBeCalledWith("/users/leo-xee"));
   });
 });
