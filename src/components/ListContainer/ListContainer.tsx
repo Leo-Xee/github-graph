@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 
+import { useParams } from "react-router-dom";
 import useStore from "@/hooks/useStore";
 import { FollowerList, FollowingList } from "./UserList";
 
 function ListContainer() {
-  const tab = useStore((state) => state.tab);
+  const { username } = useParams();
+  const { tab, changeTab } = useStore();
+
+  useEffect(() => {
+    changeTab("followings");
+  }, [username]);
 
   if (tab === "followings") {
     return <FollowingList />;
