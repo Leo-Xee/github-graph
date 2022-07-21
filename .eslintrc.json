@@ -54,6 +54,7 @@
     "@typescript-eslint/no-floating-promises": 0,
     "no-underscore-dangle": 0,
     "react/no-array-index-key": 0,
-    "@typescript-eslint/restrict-template-expressions": 0
+    "@typescript-eslint/restrict-template-expressions": 0,
+    "no-unsafe-optional-chaining": 0
   }
 }
