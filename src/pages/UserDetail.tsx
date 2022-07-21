@@ -6,7 +6,7 @@ import { useGetUserLazyQuery } from "@/graphql/generated";
 import Profile from "@/components/Profile";
 import Search from "@/components/Search";
 import Tab from "@/components/Tab";
-import List from "@/components/List";
+import ListContainer from "@/components/ListContainer";
 
 export const Board = styled.section`
   display: flex;
@@ -35,7 +35,7 @@ function UserDetail() {
       getUser();
     }
   }, [username]);
-  console.log(username);
+  // console.log(username);
 
   return (
     <main>
@@ -47,7 +47,7 @@ function UserDetail() {
           <>
             <Profile userData={data} loading={loading} />
             <Tab userData={data} loading={loading} />
-            <List />
+            <ListContainer />
           </>
         )}
       </Board>

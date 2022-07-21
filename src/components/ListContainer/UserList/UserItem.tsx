@@ -1,5 +1,5 @@
 import { User } from "api";
-import React from "react";
+import React, { forwardRef } from "react";
 import { BiBuildings } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 
@@ -9,9 +9,9 @@ type UserItemProps = {
   user: User | null;
 };
 
-function UserItem({ user }: UserItemProps) {
+const UserItem = forwardRef<HTMLDivElement, UserItemProps>(({ user }, ref) => {
   return (
-    <S.Container>
+    <S.Container ref={ref}>
       <a href={`https://github.com/${user?.login}`} target="_blank" rel="noreferrer noopener">
         <S.ImageWrapper>
           <img src={user?.avatarUrl} alt="Avatar" />
@@ -40,6 +40,6 @@ function UserItem({ user }: UserItemProps) {
       </a>
     </S.Container>
   );
-}
+});
 
 export default UserItem;
