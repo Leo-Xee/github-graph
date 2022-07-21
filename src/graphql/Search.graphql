@@ -36,9 +36,9 @@ query getUser($username: String!) {
   }
 }
 
-query getFollowings($username: String!) {
+query getFollowings($username: String!, $after: String) {
   user(login: $username) {
-    following(first: 50) {
+    following(first: 20, after: $after) {
       nodes {
         login
         name
@@ -47,13 +47,17 @@ query getFollowings($username: String!) {
         company
         location
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 }
 
-query getFollowers($username: String!) {
+query getFollowers($username: String!, $after: String) {
   user(login: $username) {
-    followers(first: 50) {
+    followers(first: 20, after: $after) {
       nodes {
         login
         name
@@ -61,6 +65,44 @@ query getFollowers($username: String!) {
         avatarUrl(size: 150)
         company
         location
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+
+query getRepositories($username: String!) {
+  user(login: $username) {
+    repositories(first: 50, orderBy: { field: PUSHED_AT, direction: DESC }) {
+      nodes {
+        name
+        description
+        primaryLanguage {
+          name
+          color
+        }
+        pushedAt
+      }
+    }
+  }
+}
+
+query getStars($username: String!) {
+  user(login: $username) {
+    starredRepositories(first: 50) {
+      nodes {
+        name
+        description
+        primaryLanguage {
+          name
+          color
+        }
+        forkCount
+        stargazerCount
+        updatedAt
       }
     }
   }
