@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useCallback, useEffect } from "react";
+import React, { useState, ChangeEvent, FormEvent, useCallback, useLayoutEffect } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import _ from "lodash";
@@ -17,7 +17,7 @@ function Search() {
     variables: { keyword: input },
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (username) {
       setInput(username);
     }
