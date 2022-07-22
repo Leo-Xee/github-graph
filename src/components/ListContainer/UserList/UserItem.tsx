@@ -9,7 +9,7 @@ type UserItemProps = {
   user: User | null;
 };
 
-const UserItem = forwardRef<HTMLDivElement, UserItemProps>(({ user }, ref) => {
+const UserItem = forwardRef<HTMLLIElement, UserItemProps>(({ user }, ref) => {
   return (
     <S.Container ref={ref}>
       <a href={`https://github.com/${user?.login}`} target="_blank" rel="noreferrer noopener">

@@ -7,7 +7,7 @@ function useInfiniteScroll(
   hasNaxtPage: boolean | undefined,
   deps: unknown[] | [],
 ) {
-  const targetRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLLIElement>(null);
 
   const onIntersect: IntersectionObserverCallback = useCallback(async ([entry]) => {
     if (entry.isIntersecting && !loading) {
