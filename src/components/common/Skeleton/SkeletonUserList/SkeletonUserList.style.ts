@@ -10,7 +10,7 @@ export const List = styled.ul`
 export const Item = styled.li`
   display: flex;
   gap: 15px;
-  height: 140px;
+  height: 120px;
   padding: 15px;
 
   & + & {
@@ -47,7 +47,7 @@ export const Name = styled.div`
 
 export const Description = styled.div`
   width: 220px;
-  height: 40px;
+  height: 30px;
   border-radius: 4px;
   animation: ${gradient} 1.5s infinite ease-out;
 `;
