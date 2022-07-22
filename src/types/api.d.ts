@@ -8,4 +8,15 @@ declare module "api" {
     company?: string | null;
     location?: string | null;
   };
+
+  export type Repo = {
+    __typename?: "Repository";
+    name: string;
+    description?: string | null;
+    stargazerCount: number;
+    forkCount: number;
+    updatedAt?: any;
+    pushedAt?: any;
+    primaryLanguage?: { __typename?: "Language"; name: string; color?: string | null } | null;
+  };
 }
