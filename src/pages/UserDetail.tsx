@@ -35,7 +35,6 @@ function UserDetail() {
       getUser();
     }
   }, [username]);
-  // console.log(username);
 
   return (
     <main>

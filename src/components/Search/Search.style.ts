@@ -104,13 +104,13 @@ export const SearchItem = styled.li`
         color: ${({ theme }) => theme["font-light"]};
       }
     }
+  }
 
-    &:hover {
-      background-color: ${({ theme }) => theme["search-hover"]};
-    }
+  &:last-of-type {
+    border-radius: 0 0 10px 10px;
+  }
 
-    &:last-child {
-      border-radius: 0 0 10px 10px;
-    }
+  &:hover {
+    background-color: ${({ theme }) => theme["search-hover"]};
   }
 `;

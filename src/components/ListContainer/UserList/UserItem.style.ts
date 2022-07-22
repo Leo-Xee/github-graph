@@ -8,6 +8,14 @@ export const Container = styled.li`
     cursor: pointer;
   }
 
+  &:first-of-type {
+    border-radius: 10px 10px 0 0;
+  }
+
+  &:last-of-type {
+    border-radius: 0 0 10px 10px;
+  }
+
   & + & {
     border-top: ${({ theme }) => theme["search-border"]};
   }
