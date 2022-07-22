@@ -10,8 +10,8 @@ type LayoutProps = {
 
 const ThemeButton = styled.button`
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
   padding: 10px;
   background-color: ${({ theme }) => theme["board-bg"]};
   box-shadow: ${({ theme }) => theme["box-shadow"]};
