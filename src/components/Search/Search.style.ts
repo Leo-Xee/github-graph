@@ -38,6 +38,11 @@ export const Input = styled.input`
   height: 30px;
   font-size: 1.8rem;
   letter-spacing: -1px;
+  background-color: transparent;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholder};
+  }
 `;
 
 export const ButtonContainer = styled.span`
@@ -45,7 +50,6 @@ export const ButtonContainer = styled.span`
   align-items: center;
   justify-content: end;
   flex: 3;
-  /* border: 1px solid red; */
 `;
 
 export const Button = styled.button`
@@ -70,7 +74,7 @@ export const Recommandation = styled.div`
   position: absolute;
   left: -1px;
   width: 370px;
-  background-color: ${({ theme }) => theme["search-bg"]};
+  background-color: ${({ theme }) => theme["board-bg"]};
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 0 0 10px 10px;
   box-shadow: ${({ theme }) => theme["box-shadow"]};

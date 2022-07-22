@@ -6,6 +6,8 @@ declare module "@emotion/react" {
     font: string;
     "font-light": string;
     "search-bg": string;
+    placeholder: string;
+    "board-bg": string;
     "search-border": string;
     "search-hover": string;
     "image-bg": string;

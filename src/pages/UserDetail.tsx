@@ -19,7 +19,7 @@ export const Board = styled.section`
   width: 410px;
   height: 100vh;
   padding-top: 90px;
-  background-color: ${({ theme }) => theme["search-bg"]};
+  background-color: ${({ theme }) => theme["board-bg"]};
   box-shadow: ${({ theme }) => theme["box-shadow"]};
   overflow-y: scroll;
 `;

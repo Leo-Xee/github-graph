@@ -10,7 +10,7 @@ function ListContainer() {
   const { tab, changeTab } = useStore();
 
   useEffect(() => {
-    changeTab("repositories");
+    changeTab("followings");
   }, [username]);
 
   if (tab === "followings") {

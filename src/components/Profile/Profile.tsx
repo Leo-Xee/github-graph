@@ -7,12 +7,12 @@ import * as S from "./Profile.style";
 import { GetUserQuery } from "@/graphql/generated";
 import SkeletonProfile from "../common/Skeleton/SkeletonProfile";
 
-type BoardProps = {
+type ProfileProps = {
   userData: GetUserQuery | undefined;
   loading: boolean;
 };
 
-function Board({ userData, loading }: BoardProps) {
+function Profile({ userData, loading }: ProfileProps) {
   return (
     <S.Container>
       {loading || !userData ? (
@@ -68,4 +68,4 @@ function Board({ userData, loading }: BoardProps) {
   );
 }
 
-export default Board;
+export default Profile;
