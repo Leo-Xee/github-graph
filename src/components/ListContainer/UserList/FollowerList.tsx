@@ -5,6 +5,7 @@ import * as S from "./UserList.style";
 import { useGetFollowersLazyQuery } from "@/graphql/generated";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import UserItem from "./UserItem";
+import SkeletonUserList from "@/components/common/Skeleton/SkeletonUserList/SkeletonUserList";
 
 function FollowerList() {
   const { username } = useParams();
@@ -28,14 +29,18 @@ function FollowerList() {
 
   return (
     <S.Container>
-      <S.List>
-        {data?.user?.followers.nodes?.map((user, idx) => {
-          if (data.user?.followers.nodes?.length === idx + 10) {
-            return <UserItem key={idx} user={user} ref={targetRef} />;
-          }
-          return <UserItem key={idx} user={user} />;
-        })}
-      </S.List>
+      {loading || !data ? (
+        <SkeletonUserList />
+      ) : (
+        <S.List>
+          {data?.user?.followers.nodes?.map((user, idx) => {
+            if (data.user?.followers.nodes?.length === idx + 10) {
+              return <UserItem key={idx} user={user} ref={targetRef} />;
+            }
+            return <UserItem key={idx} user={user} />;
+          })}
+        </S.List>
+      )}
     </S.Container>
   );
 }
