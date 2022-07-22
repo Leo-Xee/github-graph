@@ -10,6 +10,8 @@ type UserItemProps = {
 };
 
 const UserItem = forwardRef<HTMLLIElement, UserItemProps>(({ user }, ref) => {
+  const isTooLong = (user?.company?.length && user?.company?.length > 20) || false;
+
   return (
     <S.Container ref={ref}>
       <a href={`https://github.com/${user?.login}`} target="_blank" rel="noreferrer noopener">
@@ -19,10 +21,10 @@ const UserItem = forwardRef<HTMLLIElement, UserItemProps>(({ user }, ref) => {
         <S.Info>
           <h2>
             {user?.login}
-            <span> ({user?.name})</span>
+            {user?.name && <span> ({user?.name})</span>}
           </h2>
           <p>{user?.bio}</p>
-          <S.InfoList>
+          <S.InfoList isFlexColumn={isTooLong}>
             {user?.company && (
               <li>
                 <BiBuildings size={18} />

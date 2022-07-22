@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+type InfoListProps = {
+  isFlexColumn: boolean;
+};
+
 export const Container = styled.li`
   & a {
     display: flex;
@@ -43,7 +47,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   flex: 8;
-  gap: 5px;
+  gap: 4px;
 
   & h2 {
     font-size: 1.6rem;
@@ -60,9 +64,11 @@ export const Info = styled.div`
   }
 `;
 
-export const InfoList = styled.ul`
+export const InfoList = styled.ul<InfoListProps>`
   display: flex;
-  gap: 10px;
+  flex-direction: ${({ isFlexColumn }) => (isFlexColumn ? "column" : "row")};
+  flex-direction: 
+  gap: 4px;
 
   & li {
     display: flex;
