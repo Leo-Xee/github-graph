@@ -1,28 +1,12 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styled from "@emotion/styled";
 import { useGetUserLazyQuery } from "@/graphql/generated";
 
 import Profile from "@/components/Profile";
 import Search from "@/components/Search";
 import Tab from "@/components/Tab";
 import ListContainer from "@/components/ListContainer";
-
-export const Board = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 410px;
-  height: 100vh;
-  padding-top: 90px;
-  background-color: ${({ theme }) => theme["board-bg"]};
-  box-shadow: ${({ theme }) => theme["box-shadow"]};
-  overflow-y: scroll;
-`;
+import * as S from "./UserDetail.style";
 
 function UserDetail() {
   const { username } = useParams();
@@ -39,9 +23,11 @@ function UserDetail() {
   return (
     <main>
       <Search />
-      <Board>
+      <S.Board>
         {error ? (
-          <div>존재하지 않는 유저입니다.</div>
+          <S.ErrorMessage>
+            <b>{username}</b> 유저는 <br /> 존재하지 않는 유저입니다. ; (
+          </S.ErrorMessage>
         ) : (
           <>
             <Profile userData={data} loading={loading} />
@@ -49,7 +35,7 @@ function UserDetail() {
             <ListContainer />
           </>
         )}
-      </Board>
+      </S.Board>
     </main>
   );
 }
