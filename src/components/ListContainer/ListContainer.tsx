@@ -3,13 +3,14 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useStore from "@/hooks/useStore";
 import { FollowerList, FollowingList } from "./UserList";
+import { CommonRepoList, StarredRepoList } from "./RepoList";
 
 function ListContainer() {
   const { username } = useParams();
   const { tab, changeTab } = useStore();
 
   useEffect(() => {
-    changeTab("followings");
+    changeTab("repositories");
   }, [username]);
 
   if (tab === "followings") {
@@ -18,6 +19,14 @@ function ListContainer() {
 
   if (tab === "followers") {
     return <FollowerList />;
+  }
+
+  if (tab === "repositories") {
+    return <CommonRepoList />;
+  }
+
+  if (tab === "stars") {
+    return <StarredRepoList />;
   }
 
   return null;

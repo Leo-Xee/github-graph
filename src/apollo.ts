@@ -11,16 +11,30 @@ const client = new ApolloClient({
             keyArgs: false,
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {
-                return {
-                  ...existing,
-                  ...incoming,
-                  nodes: [...existing.nodes, ...incoming.nodes],
-                };
+                return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
               }
               return { ...existing, ...incoming };
             },
           },
           followers: {
+            keyArgs: false,
+            merge: (existing, incoming) => {
+              if (existing && existing.nodes && incoming.nodes) {
+                return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
+              }
+              return { ...existing, ...incoming };
+            },
+          },
+          repositories: {
+            keyArgs: false,
+            merge: (existing, incoming) => {
+              if (existing && existing.nodes && incoming.nodes) {
+                return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
+              }
+              return { ...existing, ...incoming };
+            },
+          },
+          starredRepositories: {
             keyArgs: false,
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {

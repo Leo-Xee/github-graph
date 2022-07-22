@@ -15,8 +15,8 @@ declare module "api" {
     description?: string | null;
     stargazerCount: number;
     forkCount: number;
-    updatedAt?: any;
-    pushedAt?: any;
+    updatedAt?: string;
+    pushedAt?: string;
     primaryLanguage?: { __typename?: "Language"; name: string; color?: string | null } | null;
   };
 }
