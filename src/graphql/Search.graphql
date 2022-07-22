@@ -74,35 +74,45 @@ query getFollowers($username: String!, $after: String) {
   }
 }
 
-query getRepositories($username: String!) {
+query getRepositories($username: String!, $after: String) {
   user(login: $username) {
-    repositories(first: 50, orderBy: { field: PUSHED_AT, direction: DESC }) {
+    repositories(first: 20, after: $after, orderBy: { field: PUSHED_AT, direction: DESC }) {
       nodes {
         name
         description
+        stargazerCount
+        forkCount
         primaryLanguage {
           name
           color
         }
         pushedAt
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 }
 
-query getStars($username: String!) {
+query getStars($username: String!, $after: String) {
   user(login: $username) {
-    starredRepositories(first: 50) {
+    starredRepositories(first: 20, after: $after, orderBy: { field: STARRED_AT, direction: DESC }) {
       nodes {
         name
         description
+        stargazerCount
+        forkCount
         primaryLanguage {
           name
           color
         }
-        forkCount
-        stargazerCount
         updatedAt
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
