@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { gradient } from "../SkeletonProfile/SkeletonProfile.style";
 
 export const List = styled.ul`
-  margin: 15px 0;
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 10px;
 `;
