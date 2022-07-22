@@ -27,8 +27,7 @@ function Search() {
 
   const debounceFn = async (value: string) => {
     try {
-      const a = await debouncer({ variables: { keyword: value } });
-      console.log("db", a);
+      await debouncer({ variables: { keyword: value } });
     } catch (err) {
       alert("에러가 발생했습니다. 잠시후 다시 이용해주세요.");
     }
