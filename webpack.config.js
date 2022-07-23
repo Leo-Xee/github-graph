@@ -19,6 +19,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       filename: "./index.html",
+      favicon: "./public/favicon.ico",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -64,7 +65,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|ico)$/,
         use: {
           loader: "file-loader",
           options: {
