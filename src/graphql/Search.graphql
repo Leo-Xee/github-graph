@@ -74,7 +74,7 @@ query getFollowers($username: String!, $after: String) {
   }
 }
 
-query getRepositories($username: String!, $after: String) {
+query getRepos($username: String!, $after: String) {
   user(login: $username) {
     repositories(first: 20, after: $after, orderBy: { field: PUSHED_AT, direction: DESC }) {
       nodes {
@@ -113,6 +113,52 @@ query getStars($username: String!, $after: String) {
       pageInfo {
         endCursor
         hasNextPage
+      }
+    }
+  }
+}
+
+query getFollowingsForGraph($username: String!) {
+  user(login: $username) {
+    following(first: 100) {
+      nodes {
+        login
+        name
+        avatarUrl(size: 150)
+      }
+    }
+  }
+}
+
+query getFollowersForGraph($username: String!) {
+  user(login: $username) {
+    followers(first: 100) {
+      nodes {
+        login
+        name
+        avatarUrl(size: 150)
+      }
+    }
+  }
+}
+
+query getReposForGraph($username: String!) {
+  user(login: $username) {
+    repositories(first: 100) {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+}
+
+query getStarsForGraph($username: String!) {
+  user(login: $username) {
+    starredRepositories(first: 100) {
+      nodes {
+        id
+        name
       }
     }
   }

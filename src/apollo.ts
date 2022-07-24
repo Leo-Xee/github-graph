@@ -8,7 +8,7 @@ const client = new ApolloClient({
         merge: true,
         fields: {
           following: {
-            keyArgs: false,
+            keyArgs: ["first"],
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {
                 return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
@@ -17,7 +17,7 @@ const client = new ApolloClient({
             },
           },
           followers: {
-            keyArgs: false,
+            keyArgs: ["first"],
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {
                 return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
@@ -26,7 +26,7 @@ const client = new ApolloClient({
             },
           },
           repositories: {
-            keyArgs: false,
+            keyArgs: ["first"],
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {
                 return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };
@@ -35,7 +35,7 @@ const client = new ApolloClient({
             },
           },
           starredRepositories: {
-            keyArgs: false,
+            keyArgs: ["first"],
             merge: (existing, incoming) => {
               if (existing && existing.nodes && incoming.nodes) {
                 return { ...existing, ...incoming, nodes: [...existing.nodes, ...incoming.nodes] };

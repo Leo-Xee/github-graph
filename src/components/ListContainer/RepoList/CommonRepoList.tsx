@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import * as S from "../UserList/UserList.style";
-import { useGetRepositoriesLazyQuery } from "@/graphql/generated";
+import { useGetReposLazyQuery } from "@/graphql/generated";
 import RepoItem from "./RepoItem";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import SkeletonRepoList from "@/components/common/Skeleton/SkeletonRepoList";
 
 function CommonRepoList() {
   const { username } = useParams();
-  const [getRepos, { data, loading, fetchMore }] = useGetRepositoriesLazyQuery();
+  const [getRepos, { data, loading, fetchMore }] = useGetReposLazyQuery();
 
   const [targetRef] = useInfiniteScroll(
     loading,
