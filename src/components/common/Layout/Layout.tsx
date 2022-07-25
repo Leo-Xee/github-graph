@@ -17,6 +17,7 @@ const ThemeButton = styled.button`
   box-shadow: ${({ theme }) => theme["box-shadow"]};
   border: ${({ theme }) => theme["search-border"]};
   border-radius: 50%;
+  z-index: 10;
 `;
 
 function Layout({ children }: LayoutProps) {
