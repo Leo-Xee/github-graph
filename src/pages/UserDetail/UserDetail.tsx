@@ -7,6 +7,7 @@ import Search from "@/components/Search";
 import Tab from "@/components/Tab";
 import ListContainer from "@/components/ListContainer";
 import * as S from "./UserDetail.style";
+import Graph from "@/components/Graph";
 
 function UserDetail() {
   const { username } = useParams();
@@ -23,6 +24,7 @@ function UserDetail() {
   return (
     <main>
       <Search />
+      {!error && <Graph userData={data} loading={loading} />}
       <S.Board>
         {error ? (
           <S.ErrorMessage>
