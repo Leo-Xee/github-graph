@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 import * as d3 from "d3";
-import { select, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import { D3ZoomEvent, select, SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import {
   GetUserQuery,
   GetFollowingsForGraphQuery,
@@ -62,8 +63,8 @@ const runForceGraph = (
   const simulation = d3
     .forceSimulation(nodes)
     .force("link", d3.forceLink(links).distance(180).strength(0.8))
-    .force("charge", d3.forceManyBody().strength(-1250).distanceMin(100).distanceMax(2500))
-    .force("collide", d3.forceCollide().radius(33).strength(0.7))
+    .force("charge", d3.forceManyBody().strength(-1000).distanceMin(100))
+    .force("collide", d3.forceCollide().radius(35).strength(0.7))
     .force("center", d3.forceCenter((width - 410) / 2, height / 2))
     .force("x", d3.forceX())
     .force("y", d3.forceY());
@@ -136,7 +137,17 @@ const runForceGraph = (
     texts.attr("y", (node) => node.y || 0);
   });
 
-  // Dragging
+  // Zoom
+  const zoom = d3
+    .zoom<SVGSVGElement, unknown>()
+    .scaleExtent([0.3, 2])
+    .on("zoom", ({ transform }: any) => {
+      nodeGroup.attr("transform", transform);
+      linkGroup.attr("transform", transform);
+    });
+  zoom(svg);
+
+  // Drag
   const drag = d3
     .drag<SVGGElement, UserNode>()
     .on("start", () => {
