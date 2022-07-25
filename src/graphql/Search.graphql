@@ -123,8 +123,6 @@ query getFollowingsForGraph($username: String!) {
     following(first: 100) {
       nodes {
         login
-        name
-        avatarUrl(size: 150)
       }
     }
   }
@@ -135,8 +133,6 @@ query getFollowersForGraph($username: String!) {
     followers(first: 100) {
       nodes {
         login
-        name
-        avatarUrl(size: 150)
       }
     }
   }
@@ -146,7 +142,6 @@ query getReposForGraph($username: String!) {
   user(login: $username) {
     repositories(first: 100) {
       nodes {
-        id
         name
       }
     }
@@ -157,7 +152,6 @@ query getStarsForGraph($username: String!) {
   user(login: $username) {
     starredRepositories(first: 100) {
       nodes {
-        id
         name
       }
     }
