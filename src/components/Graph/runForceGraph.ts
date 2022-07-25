@@ -25,8 +25,8 @@ const filterData = (
   baseData: BaseData,
   userData: GetUserQuery,
 ): { nodes: UserNode[]; links: UserLink[] } => {
-  console.log("base", baseData);
-  console.log("user", userData);
+  // console.log("base", baseData);
+  // console.log("user", userData);
 
   const userNode = {
     id: 0,
@@ -41,8 +41,8 @@ const filterData = (
   nodes.unshift(userNode);
 
   const links: UserLink[] = nodes.map((_, id) => ({ source: 0, target: id }));
-  console.log("nodes", nodes);
-  console.log("links", links);
+  // console.log("nodes", nodes);
+  // console.log("links", links);
 
   return {
     nodes,
@@ -78,7 +78,12 @@ const runForceGraph = (
   const linkGroup = svg.append("g").attr("id", "links");
   const nodeGroup = svg.append("g").attr("id", "nodes");
 
-  const lines = linkGroup.selectAll("line").data(links).join("line").attr("stroke", "#ccc");
+  const lines = linkGroup
+    .selectAll("line")
+    .data(links)
+    .join("line")
+    .attr("stroke-opacity", 0.6)
+    .attr("stroke", "#999");
 
   const nodeList = nodeGroup
     .selectAll<SVGGElement, UserNode>(".node")
@@ -113,6 +118,8 @@ const runForceGraph = (
         .attr("ry", 12);
     });
 
+  // const avatar = console.log(avatar);
+
   const rects = nodeList.selectAll<SVGRectElement, UserNode>("rect");
   const texts = nodeList.selectAll<SVGTextElement, UserNode>("text");
 
@@ -128,6 +135,26 @@ const runForceGraph = (
     texts.attr("x", (node) => node.x || 0);
     texts.attr("y", (node) => node.y || 0);
   });
+
+  // Dragging
+  const drag = d3
+    .drag<SVGGElement, UserNode>()
+    .on("start", () => {
+      nodeList.style("cursor", "grabbing");
+      simulation.alphaTarget(0.1).restart();
+    })
+    .on("drag", (event: DragEvent, node) => {
+      node.fx = event.x;
+      node.fy = event.y;
+    })
+    .on("end", (_, node) => {
+      nodeList.style("cursor", "grab");
+      simulation.alphaTarget(0);
+      node.fx = null;
+      node.fy = null;
+    });
+
+  nodeList.call(drag);
 
   // 인스턴스 제거
   const destroy = () => {
