@@ -123,6 +123,9 @@ query getFollowingsForGraph($username: String!) {
     following(first: 100) {
       nodes {
         login
+        followers {
+          totalCount
+        }
       }
     }
   }
@@ -133,6 +136,9 @@ query getFollowersForGraph($username: String!) {
     followers(first: 100) {
       nodes {
         login
+        followers {
+          totalCount
+        }
       }
     }
   }
@@ -143,6 +149,7 @@ query getReposForGraph($username: String!) {
     repositories(first: 100) {
       nodes {
         name
+        stargazerCount
       }
     }
   }
@@ -153,6 +160,7 @@ query getStarsForGraph($username: String!) {
     starredRepositories(first: 100) {
       nodes {
         name
+        stargazerCount
       }
     }
   }
