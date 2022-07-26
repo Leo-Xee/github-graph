@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable func-names */
-/* eslint-disable no-param-reassign */
+/* eslint-disable */
 import * as d3 from "d3";
-import { D3ZoomEvent, select, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import { select, SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import {
   GetUserQuery,
   GetFollowingsForGraphQuery,
@@ -11,55 +9,119 @@ import {
   GetStarsForGraphQuery,
 } from "../../graphql/generated";
 
-type BaseData = GetFollowingsForGraphQuery;
-// | GetFollowersForGraphQuery
-// | GetReposForGraphQuery
-// | GetStarsForGraphQuery;
+export type BaseData =
+  | GetFollowingsForGraphQuery
+  | GetFollowersForGraphQuery
+  | GetReposForGraphQuery
+  | GetStarsForGraphQuery;
 
 type RectType = { rect?: SVGRect };
-type UserType = { login: string };
+type UserType = { login: string; followerCount: number };
+type RepoType = { name: string; starCount: number };
 
-type UserNode = SimulationNodeDatum & UserType & RectType;
-type UserLink = SimulationLinkDatum<UserNode>;
+type ForcedNode = SimulationNodeDatum & UserType & RepoType & RectType;
+type ForcedLink = SimulationLinkDatum<ForcedNode>;
 
-const filterData = (
-  baseData: BaseData,
-  userData: GetUserQuery,
-): { nodes: UserNode[]; links: UserLink[] } => {
-  // console.log("base", baseData);
-  // console.log("user", userData);
-
-  const userNode = {
-    id: 0,
-    login: userData.user?.login || "",
-  };
-
-  const nodes: UserNode[] =
-    baseData.user?.following.nodes?.map((node, id) => ({
-      id: id + 1,
-      login: node?.login || "",
-    })) || [];
-  nodes.unshift(userNode);
-
-  const links: UserLink[] = nodes.map((_, id) => ({ source: 0, target: id }));
-  // console.log("nodes", nodes);
-  // console.log("links", links);
-
-  return {
-    nodes,
-    links,
-  };
+type RunForceGraph = {
+  (targetElement: HTMLElement, baseData: BaseData, userData: GetUserQuery): () => void;
 };
 
-const runForceGraph = (
-  targetElement: HTMLElement,
-  baseData: BaseData,
-  userData: GetUserQuery,
-): (() => void) => {
-  const { nodes, links } = filterData(baseData, userData);
+type FilterData = {
+  (baseData: any, userData: GetUserQuery): { nodes: ForcedNode[]; links: ForcedLink[] };
+};
 
+const filterData: FilterData = (baseData, userData) => {
+  let nodes: any = [];
+  let links: ForcedLink[] = [];
+
+  if (baseData.user?.following) {
+    nodes =
+      baseData.user.following.nodes?.map((node, id) => {
+        if (id === 0) {
+          return {
+            id,
+            login: userData.user?.login || "",
+            followerCount: userData.user?.followers.totalCount || 0,
+          };
+        }
+        return {
+          id: id + 1,
+          login: node?.login || "",
+          followerCount: node?.followers.totalCount || 0,
+        };
+      }) || [];
+    links = nodes.map((_, id) => ({ source: 0, target: id }));
+    return { nodes, links };
+  }
+
+  if (baseData.user?.followers) {
+    nodes =
+      baseData.user.followers.nodes?.map((node, id) => {
+        if (id === 0) {
+          return {
+            id,
+            login: userData.user?.login || "",
+            followerCount: userData.user?.followers.totalCount || 0,
+          };
+        }
+        return {
+          id: id + 1,
+          login: node?.login || "",
+          followerCount: node?.followers.totalCount || 0,
+        };
+      }) || [];
+    links = nodes.map((_, id) => ({ source: 0, target: id }));
+    return { nodes, links };
+  }
+
+  if (baseData.user?.repositories) {
+    nodes =
+      baseData.user.repositories.nodes?.map((node, id) => {
+        if (id === 0) {
+          return {
+            id,
+            name: userData.user?.login || "",
+            starCount: 0,
+          };
+        }
+        return {
+          id: id + 1,
+          name: node?.name || "",
+          starCount: node?.stargazerCount || 0,
+        };
+      }) || [];
+    links = nodes.map((_, id) => ({ source: 0, target: id }));
+    return { nodes, links };
+  }
+
+  if (baseData.user?.starredRepositories) {
+    nodes =
+      baseData.user.starredRepositories.nodes?.map((node, id) => {
+        if (id === 0) {
+          return {
+            id,
+            name: userData.user?.login || "",
+            starCount: 0,
+          };
+        }
+        return {
+          id: id + 1,
+          name: node?.name || "",
+          starCount: node?.stargazerCount || 0,
+        };
+      }) || [];
+    links = nodes.map((_, id) => ({ source: 0, target: id }));
+    return { nodes, links };
+  }
+
+  return { nodes, links };
+};
+
+const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
+  const { nodes, links } = filterData(baseData, userData);
   const { width, height } = targetElement.getBoundingClientRect();
 
+  // 시뮬레이션 설정
   const simulation = d3
     .forceSimulation(nodes)
     .force("link", d3.forceLink(links).distance(180).strength(0.8))
@@ -69,6 +131,7 @@ const runForceGraph = (
     .force("x", d3.forceX())
     .force("y", d3.forceY());
 
+  // svg 컨테이너 생성
   const svg = d3
     .select(targetElement)
     .append<SVGSVGElement>("svg")
@@ -76,34 +139,46 @@ const runForceGraph = (
     .attr("height", "100%")
     .style("display", "block");
 
+  // node와 link 분리
   const linkGroup = svg.append("g").attr("id", "links");
   const nodeGroup = svg.append("g").attr("id", "nodes");
 
-  const lines = linkGroup
+  const lineList = linkGroup
     .selectAll("line")
     .data(links)
     .join("line")
-    .attr("stroke-opacity", 0.6)
+    .attr("stroke-opacity", 0.8)
     .attr("stroke", "#999");
 
   const nodeList = nodeGroup
-    .selectAll<SVGGElement, UserNode>(".node")
+    .selectAll<SVGGElement, ForcedNode>(".node")
     .data(nodes)
     .join("g")
     .classed("node", (d) => d.index !== 0)
-    .classed("avatar", (d) => d.index === 0)
-    .each(function () {
-      select<SVGGElement, UserNode>(this).append("rect").style("fill", "#1a73e8");
+    .classed("avatar", (d) => d.index === 0);
+
+  // 전체 노드의 Rect와 Text
+  nodeList
+    .each(function ({ index, followerCount, starCount }) {
+      select<SVGGElement, ForcedNode>(this)
+        .append("rect")
+        .style("fill", () => {
+          if (index === 0) return "#845ef7";
+          if ((followerCount || starCount) >= 100 && (followerCount || starCount) < 1000)
+            return "#12b886";
+          if ((followerCount || starCount) >= 1000) return "#e64980";
+          return "#fab005";
+        });
     })
-    .each(function ({ login }) {
-      select<SVGGElement, UserNode>(this)
+    .each(function ({ login, name }) {
+      select<SVGGElement, ForcedNode>(this)
         .append<SVGTextElement>("text")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
-        .style("font-size", "1.8rem")
+        .style("font-size", "1.6rem")
         .style("user-select", "none")
-        .text(login)
+        .text(login || name)
         .call((selection) => {
           selection.each((node) => {
             node.rect = this.getBBox();
@@ -111,30 +186,51 @@ const runForceGraph = (
         });
     })
     .each(function ({ rect }) {
-      select<SVGGElement, UserNode>(this)
-        .selectAll<SVGRectElement, UserNode>("rect")
+      select<SVGGElement, ForcedNode>(this)
+        .selectAll<SVGRectElement, ForcedNode>("rect")
         .attr("width", (rect?.width || 0) + 10)
         .attr("height", (rect?.height || 0) + 4)
         .attr("rx", 12)
         .attr("ry", 12);
     });
 
-  // const avatar = console.log(avatar);
+  // 검색된 유저의 Avatar
+  const avatar = nodeList
+    .filter(".avatar")
+    .each(function () {
+      select<SVGGElement, ForcedNode>(this).select("rect").attr("transform", "translate(0, 65)");
+    })
+    .each(function () {
+      select(this).select("text").attr("transform", "translate(0, 65)");
+    })
+    .append("foreignObject")
+    .each(function () {
+      select<SVGForeignObjectElement, ForcedNode>(this)
+        .attr("width", 80)
+        .attr("height", 80)
+        .style("border-radius", "50%")
+        .append("xhtml:img")
+        .attr("src", () => userData.user?.avatarUrl || "");
+    });
 
-  const rects = nodeList.selectAll<SVGRectElement, UserNode>("rect");
-  const texts = nodeList.selectAll<SVGTextElement, UserNode>("text");
+  const rects = nodeList.selectAll<SVGRectElement, ForcedNode>("rect");
+  const texts = nodeList.selectAll<SVGTextElement, ForcedNode>("text");
 
+  // 매 Tick 마다 실행
   simulation.on("tick", () => {
-    lines.attr("x1", (link) => (link.source as UserNode).x || 0);
-    lines.attr("y1", (link) => (link.source as UserNode).y || 0);
-    lines.attr("x2", (link) => (link.target as UserNode).x || 0);
-    lines.attr("y2", (link) => (link.target as UserNode).y || 0);
+    lineList.attr("x1", (link) => (link.source as ForcedNode).x || 0);
+    lineList.attr("y1", (link) => (link.source as ForcedNode).y || 0);
+    lineList.attr("x2", (link) => (link.target as ForcedNode).x || 0);
+    lineList.attr("y2", (link) => (link.target as ForcedNode).y || 0);
 
     rects.attr("x", ({ x, rect }) => (x || 0) - ((rect?.width || 0) + 10) / 2);
     rects.attr("y", ({ y, rect }) => (y || 0) - ((rect?.height || 0) + 4) / 2);
 
     texts.attr("x", (node) => node.x || 0);
     texts.attr("y", (node) => node.y || 0);
+
+    avatar.attr("x", (node) => (node.x || 0) - 40);
+    avatar.attr("y", (node) => (node.y || 0) - 40);
   });
 
   // Zoom
@@ -145,11 +241,12 @@ const runForceGraph = (
       nodeGroup.attr("transform", transform);
       linkGroup.attr("transform", transform);
     });
+
   zoom(svg);
 
   // Drag
   const drag = d3
-    .drag<SVGGElement, UserNode>()
+    .drag<SVGGElement, ForcedNode>()
     .on("start", () => {
       nodeList.style("cursor", "grabbing");
       simulation.alphaTarget(0.1).restart();
@@ -170,7 +267,7 @@ const runForceGraph = (
   // 인스턴스 제거
   const destroy = () => {
     simulation.stop();
-    console.log("stop");
+    svg.remove();
   };
 
   return destroy;
