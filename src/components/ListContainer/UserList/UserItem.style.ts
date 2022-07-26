@@ -67,13 +67,12 @@ export const Info = styled.div`
 export const InfoList = styled.ul<InfoListProps>`
   display: flex;
   flex-direction: ${({ isFlexColumn }) => (isFlexColumn ? "column" : "row")};
-  flex-direction: 
-  gap: 4px;
+  gap: 6px;
 
   & li {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
     font-size: 1.2rem;
     font-weight: 600;
   }
