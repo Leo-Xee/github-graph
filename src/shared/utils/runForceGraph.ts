@@ -1,120 +1,12 @@
 /* eslint-disable */
 import * as d3 from "d3";
-import { select, SimulationLinkDatum, SimulationNodeDatum } from "d3";
-import {
-  GetUserQuery,
-  GetFollowingsForGraphQuery,
-  GetFollowersForGraphQuery,
-  GetReposForGraphQuery,
-  GetStarsForGraphQuery,
-} from "../../graphql/generated";
-
-export type BaseData =
-  | GetFollowingsForGraphQuery
-  | GetFollowersForGraphQuery
-  | GetReposForGraphQuery
-  | GetStarsForGraphQuery;
-
-type RectType = { rect?: SVGRect };
-type UserType = { login: string; followerCount: number };
-type RepoType = { name: string; starCount: number };
-
-type ForcedNode = SimulationNodeDatum & UserType & RepoType & RectType;
-type ForcedLink = SimulationLinkDatum<ForcedNode>;
+import { select } from "d3";
+import { BaseData, ForcedNode } from "graph";
+import { GetUserQuery } from "../../graphql/generated";
+import filterData from "./FilterData";
 
 type RunForceGraph = {
   (targetElement: HTMLElement, baseData: BaseData, userData: GetUserQuery): () => void;
-};
-
-type FilterData = {
-  (baseData: any, userData: GetUserQuery): { nodes: ForcedNode[]; links: ForcedLink[] };
-};
-
-const filterData: FilterData = (baseData, userData) => {
-  let nodes: any = [];
-  let links: ForcedLink[] = [];
-
-  if (baseData.user?.following) {
-    nodes =
-      baseData.user.following.nodes?.map((node, id) => {
-        if (id === 0) {
-          return {
-            id,
-            login: userData.user?.login || "",
-            followerCount: userData.user?.followers.totalCount || 0,
-          };
-        }
-        return {
-          id: id + 1,
-          login: node?.login || "",
-          followerCount: node?.followers.totalCount || 0,
-        };
-      }) || [];
-    links = nodes.map((_, id) => ({ source: 0, target: id }));
-    return { nodes, links };
-  }
-
-  if (baseData.user?.followers) {
-    nodes =
-      baseData.user.followers.nodes?.map((node, id) => {
-        if (id === 0) {
-          return {
-            id,
-            login: userData.user?.login || "",
-            followerCount: userData.user?.followers.totalCount || 0,
-          };
-        }
-        return {
-          id: id + 1,
-          login: node?.login || "",
-          followerCount: node?.followers.totalCount || 0,
-        };
-      }) || [];
-    links = nodes.map((_, id) => ({ source: 0, target: id }));
-    return { nodes, links };
-  }
-
-  if (baseData.user?.repositories) {
-    nodes =
-      baseData.user.repositories.nodes?.map((node, id) => {
-        if (id === 0) {
-          return {
-            id,
-            name: userData.user?.login || "",
-            starCount: 0,
-          };
-        }
-        return {
-          id: id + 1,
-          name: node?.name || "",
-          starCount: node?.stargazerCount || 0,
-        };
-      }) || [];
-    links = nodes.map((_, id) => ({ source: 0, target: id }));
-    return { nodes, links };
-  }
-
-  if (baseData.user?.starredRepositories) {
-    nodes =
-      baseData.user.starredRepositories.nodes?.map((node, id) => {
-        if (id === 0) {
-          return {
-            id,
-            name: userData.user?.login || "",
-            starCount: 0,
-          };
-        }
-        return {
-          id: id + 1,
-          name: node?.name || "",
-          starCount: node?.stargazerCount || 0,
-        };
-      }) || [];
-    links = nodes.map((_, id) => ({ source: 0, target: id }));
-    return { nodes, links };
-  }
-
-  return { nodes, links };
 };
 
 const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
@@ -165,9 +57,9 @@ const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
         .style("fill", () => {
           if (index === 0) return "#845ef7";
           if ((followerCount || starCount) >= 100 && (followerCount || starCount) < 1000)
-            return "#12b886";
-          if ((followerCount || starCount) >= 1000) return "#e64980";
-          return "#fab005";
+            return "#ff922b";
+          if ((followerCount || starCount) >= 1000) return "#d6336c";
+          return "#12b886";
         });
     })
     .each(function ({ login, name }) {
@@ -198,10 +90,10 @@ const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
   const avatar = nodeList
     .filter(".avatar")
     .each(function () {
-      select<SVGGElement, ForcedNode>(this).select("rect").attr("transform", "translate(0, 65)");
+      select<SVGGElement, ForcedNode>(this).select("rect").attr("transform", "translate(0, 60)");
     })
     .each(function () {
-      select(this).select("text").attr("transform", "translate(0, 65)");
+      select(this).select("text").attr("transform", "translate(0, 60)");
     })
     .append("foreignObject")
     .each(function () {

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
+import { BaseData } from "graph";
 import {
   GetUserQuery,
   useGetFollowersForGraphLazyQuery,
@@ -9,7 +10,7 @@ import {
   useGetReposForGraphLazyQuery,
   useGetStarsForGraphLazyQuery,
 } from "@/graphql/generated";
-import runForceGraph, { BaseData } from "./runForceGraph";
+import runForceGraph from "../../shared/utils/runForceGraph";
 import useStore from "@/hooks/useStore";
 
 const Container = styled.section`
