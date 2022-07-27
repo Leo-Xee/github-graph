@@ -1,4 +1,12 @@
 declare module "graph" {
+  import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
+  import {
+    GetFollowersForGraphQuery,
+    GetFollowingsForGraphQuery,
+    GetReposForGraphQuery,
+    GetStarsForGraphQuery,
+  } from "@/graphql/generated";
+
   export type BaseData =
     | GetFollowingsForGraphQuery
     | GetFollowersForGraphQuery
