@@ -7,8 +7,6 @@
   </a>
 </p>
 
-<img width="800" src="https://user-images.githubusercontent.com/21965795/181234520-7dde56d7-b768-4c0b-8419-df7a837fee3b.gif" />
-
 
 
 ## 🔥 소개
