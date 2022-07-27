@@ -12,8 +12,12 @@ import {
 } from "@/graphql/generated";
 import runForceGraph from "../../shared/utils/runForceGraph";
 import useStore from "@/hooks/useStore";
+import Spinner from "../common/Spinner";
 
 const Container = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -80,7 +84,7 @@ function Graph({ userData, loading }: GraphProps) {
     return () => destoryFn && destoryFn();
   }, [username, tab, data]);
 
-  return <Container ref={ref} />;
+  return <Container ref={ref}>{(loading || !data) && <Spinner size={60} />}</Container>;
 }
 
 export default Graph;
