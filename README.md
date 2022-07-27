@@ -1,11 +1,41 @@
-# Github Graph
+<h1 align="middle">GitHub-Graph</h1>
+<p align="middle">GitHub 유저의 정보를 그래프 뷰로 제공하는 애플리케이션 🌐</p>
+<p align="middle">
+  <img src="https://img.shields.io/badge/version-1.0.0-yellow?style=flat-square" alt="template version"/>
+  <a href="https://github.com/daybrush/moveable/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/daybrush/moveable.svg?style=flat-square&label=license&color=08CE5D"/>
+  </a>
+</p>
+
+<img width="800" src="https://user-images.githubusercontent.com/21965795/181234520-7dde56d7-b768-4c0b-8419-df7a837fee3b.gif" />
+
+
 
 ## 🔥 소개
 
 ## 📚 기술 스택
 
+| Typescript | React.js |  Emotion   |  GraphQL   |  Apollo-Client   | 
+| :--------: | :--------: | :------: | :-----: | :-----: |
+|  <img src="https://user-images.githubusercontent.com/21965795/174472604-4e0c144f-4500-4cc6-80b7-3dd29c907171.png" width="100px"/> |  <img src="https://user-images.githubusercontent.com/21965795/176630651-1248191d-432c-45ac-b876-9e5ff54e36f9.png" width="100px" > | <img src="https://user-images.githubusercontent.com/21965795/174472822-309713cb-6730-453c-8bd2-ea071c1176ec.png" width="100px"/>  | <img src="https://user-images.githubusercontent.com/21965795/181214974-dd227adb-ec4d-4289-8ec7-14bd5ac4e6ed.png" width="100px"/>|<img src="https://user-images.githubusercontent.com/21965795/181214962-6fefb210-5f2f-4040-be9c-d4cba3391b7b.png" width="100px"/>|
+
 ## 🌲 디렉터리 구조
 
+```bash
+.
+├── public
+└── src
+    ├── assets      // 정적 파일
+    ├── components
+    │   └── common  // 공통 컴포넌트
+    ├── graphql     // graphQL 쿼리
+    ├── hooks       // 커스텀 Hooks
+    ├── pages       // Page 컴포넌트 
+    ├── shared
+    │   └── utils   // 유틸 함수
+    ├── styles      
+    └── types       // 타입
+```
 ## ⚙️ 주요 내용
 
 ### ✅ Github 유저 검색과 디바운스
@@ -17,6 +47,7 @@
 ### ✅ 유저 정보 기반의 시각적인 그래프 뷰
 
 ### ✅ 다크모드
+
 
 ## ⁉️ 트러블 슈팅
 
