@@ -7,7 +7,7 @@ function Home() {
   return (
     <main>
       <Search />
-      <Title />
+      <Title description="GitHub 유저를 검색하고 그래프 뷰로 확인해보세요." />
     </main>
   );
 }
