@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
@@ -13,18 +12,8 @@ import {
 import runForceGraph from "../../shared/utils/runForceGraph";
 import useStore from "@/hooks/useStore";
 import Spinner from "../common/Spinner";
-
-const Container = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-left: 410px;
-  width: 100vw;
-  height: 100vh;
-`;
+import Legend from "./Legend";
+import Container from "./Graph.style";
 
 type GraphProps = {
   userData: GetUserQuery | undefined;
@@ -82,9 +71,14 @@ function Graph({ userData, loading }: GraphProps) {
     }
 
     return () => destoryFn && destoryFn();
-  }, [username, tab, data]);
+  }, [username, tab, data, userData]);
 
-  return <Container ref={ref}>{(loading || !data) && <Spinner size={60} />}</Container>;
+  return (
+    <Container ref={ref}>
+      {(loading || !data) && <Spinner size={60} />}
+      <Legend />
+    </Container>
+  );
 }
 
 export default Graph;
