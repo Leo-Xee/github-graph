@@ -6,8 +6,11 @@
     <img src="https://img.shields.io/github/license/daybrush/moveable.svg?style=flat-square&label=license&color=08CE5D"/>
   </a>
 </p>
+<div align="middle">
+  <img width="850" alt="graph" src="https://user-images.githubusercontent.com/21965795/181421405-4e9bee6b-64a7-4123-8641-0f4a98a044bd.png"/>
+</div>
 
-
+<br/>
 
 ## 🔥 소개 ( Demo ) 
 
@@ -18,6 +21,46 @@
 <br/>
 
 ## 🚀 실행 방법
+
+### 프로젝트 클론 및 의존성 설치
+
+```bash
+$ git clone https://github.com/Leo-Xee/github-graph.git
+```
+
+```bash
+$ npm install
+# or 
+$ yarn install
+```
+
+### GitHub API Token 생성 및 적용
+
+GitHub API를 사용하기 위해서 [GitHub API Docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)를 참고해서 Personal Token을 생성합니다. **다만 아래의 항목을 필수로 체크해야합니다.**
+- `repo`
+- `admin:repo_hook`
+- `user`
+- `project`
+
+Personal Token 생성을 완료했다면 루트 위치에 `.env.example`을 참고해서 `.env`를 생성하고 Token값을 할당합니다.
+
+### GraphQL Code Generator 실행
+
+현재 API 타입 정보가 프로젝트에 존재하지 않기 때문에 다음 명령어로 생성하면 타입 정보를 가진 `src/graphql/generated.ts` 가 생성됩니다.
+
+```bash
+$ npm run generate
+# or 
+$ yarn generate
+```
+
+### 프로젝트 실행
+
+```bash
+$ npm run dev
+# or 
+$ yarn dev
+```
 
 <br/>
 
