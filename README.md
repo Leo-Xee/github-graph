@@ -9,13 +9,30 @@
 
 
 
-## 🔥 소개
+## 🔥 소개 ( Demo ) 
+
+**GitHub-Graph는 검색한 GitHub 유저의 정보를 리스트와 그래프 뷰로 확인할 수 있는 기능을 제공하는 애플리케이션입니다.**
+
+이 프로젝트는 제가 현재 사용하고 있는 메모앱인 [Obsidian](https://obsidian.md/)의 그래프 뷰를 인상 깊게 느껴서 이를 적용해 볼 아이템을 고민해보다가 GitHub 유저의 정보에 적용하면 사용자에게 새로움과 유용함을 제공할 수 있을 것 같아서 시작하게 된 프로젝트입니다. 초기에는 GitHub에서 제공하는 REST API를 사용해서 구현하다가 Over-Fetching 문제를 겪어보고 너무 비효율적이라고 생각해서 GraphQL을 사용하는 것으로 변경했습니다. 하지만 GraphQL 사용이 처음이다보니 전반적인 동작 방식을 익힐 필요가 있다고 판단했습니다. 그래서 공식 문서과 간단한 강의를 참고해서 [영화 애플리케이션](https://github.com/Leo-Xee/graphql-movie-app)을 구현해본 뒤 프로젝트를 다시 진행했습니다. 또한 API의 타입 선언의 자동화를 위해서 [GraphQL Code Generateor](https://www.graphql-code-generator.com/)를 사용했으며 이를 통해 생성된 API 타입 선언 파일(`generated.ts`)은 큰 용량 때문에 Git에 포함하지는 않았습니다.
+
+<br/>
+
+## 🚀 실행 방법
+
+<br/>
 
 ## 📚 기술 스택
 
-| Typescript | React.js |  Emotion   |  GraphQL   |  Apollo-Client   | 
-| :--------: | :--------: | :------: | :-----: | :-----: |
-|  <img src="https://user-images.githubusercontent.com/21965795/174472604-4e0c144f-4500-4cc6-80b7-3dd29c907171.png" width="100px"/> |  <img src="https://user-images.githubusercontent.com/21965795/176630651-1248191d-432c-45ac-b876-9e5ff54e36f9.png" width="100px" > | <img src="https://user-images.githubusercontent.com/21965795/174472822-309713cb-6730-453c-8bd2-ea071c1176ec.png" width="100px"/>  | <img src="https://user-images.githubusercontent.com/21965795/181214974-dd227adb-ec4d-4289-8ec7-14bd5ac4e6ed.png" width="100px"/>|<img src="https://user-images.githubusercontent.com/21965795/181214962-6fefb210-5f2f-4040-be9c-d4cba3391b7b.png" width="100px"/>|
+| Typescript | React.js |  Emotion   |  GraphQL   | 
+| :--------: | :--------: | :------: | :-----: |
+|  <img src="https://user-images.githubusercontent.com/21965795/174472604-4e0c144f-4500-4cc6-80b7-3dd29c907171.png" width="100px"/> |  <img src="https://user-images.githubusercontent.com/21965795/176630651-1248191d-432c-45ac-b876-9e5ff54e36f9.png" width="100px" > | <img src="https://user-images.githubusercontent.com/21965795/174472822-309713cb-6730-453c-8bd2-ea071c1176ec.png" width="100px"/>  | <img src="https://user-images.githubusercontent.com/21965795/181214974-dd227adb-ec4d-4289-8ec7-14bd5ac4e6ed.png" width="100px"/>|
+
+ | Apollo-Client | D3.js | Zustand |
+ | :-----: | :-----: | :-----: |
+ | <img src="https://user-images.githubusercontent.com/21965795/181214962-6fefb210-5f2f-4040-be9c-d4cba3391b7b.png" width="100px"/>|<img src="https://user-images.githubusercontent.com/21965795/181407685-e19c697e-dade-4cbf-8d8f-a0028b188c6e.png" width="100px"/>|<img src="https://user-images.githubusercontent.com/21965795/181411960-a0b2bb8f-425a-4065-a1cb-c0d0152df8f8.png" width="100px"/>|
+
+
+<br/>
 
 ## 🌲 디렉터리 구조
 
@@ -34,6 +51,8 @@
     ├── styles      
     └── types       // 타입
 ```
+<br/>
+
 ## ⚙️ 주요 내용
 
 ### ✅ Github 유저 검색과 디바운스
@@ -46,6 +65,7 @@
 
 ### ✅ 다크모드
 
+<br/>
 
 ## ⁉️ 트러블 슈팅
 
