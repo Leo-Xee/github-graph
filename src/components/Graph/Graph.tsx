@@ -10,7 +10,7 @@ import {
   useGetStarsForGraphLazyQuery,
 } from "@/graphql/generated";
 import runForceGraph from "../../shared/utils/runForceGraph";
-import useStore from "@/hooks/useStore";
+import useStoreTab from "@/hooks/useStoreTab";
 import Spinner from "../common/Spinner";
 import Legend from "./Legend";
 import Container from "./Graph.style";
@@ -21,7 +21,7 @@ type GraphProps = {
 };
 
 function Graph({ userData, loading }: GraphProps) {
-  const tab = useStore((state) => state.tab);
+  const tab = useStoreTab((state) => state.tab);
   const { username } = useParams();
   const ref = useRef(null);
 

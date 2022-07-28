@@ -2,10 +2,10 @@ import React from "react";
 import { BsInfoCircleFill } from "react-icons/bs";
 
 import * as S from "./Legend.style";
-import useStore from "@/hooks/useStore";
+import useStoreTab from "@/hooks/useStoreTab";
 
 function Legend() {
-  const tab = useStore((state) => state.tab);
+  const tab = useStoreTab((state) => state.tab);
 
   const labelName = tab === "followings" || tab === "followers" ? "Follower 수" : "Star 개수";
 

@@ -1,8 +1,8 @@
 import React from "react";
-import useStore, { Theme } from "./useStore";
+import useStoreTheme, { Theme } from "./useStoreTheme";
 
 function useTheme() {
-  const { theme, changeTheme } = useStore();
+  const { theme, changeTheme } = useStoreTheme();
 
   const localTheme = localStorage.getItem("theme");
   const currentTheme = localTheme || theme;

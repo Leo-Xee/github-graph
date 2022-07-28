@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import useStore from "@/hooks/useStore";
+import useStoreTab from "@/hooks/useStoreTab";
 import { FollowerList, FollowingList } from "./UserList";
 import { CommonRepoList, StarredRepoList } from "./RepoList";
 
 function ListContainer() {
   const { username } = useParams();
-  const { tab, changeTab } = useStore();
+  const { tab, changeTab } = useStoreTab();
 
   useEffect(() => {
     changeTab("followings");

@@ -3,7 +3,7 @@ import { GetUserQuery } from "@/graphql/generated";
 
 import * as S from "./Tab.style";
 import SkeletonTab from "../common/Skeleton/SkeletonTab";
-import useStore from "@/hooks/useStore";
+import useStoreTab from "@/hooks/useStoreTab";
 
 type TabProps = {
   userData: GetUserQuery | undefined;
@@ -11,7 +11,7 @@ type TabProps = {
 };
 
 function Tab({ userData, loading }: TabProps) {
-  const { tab, changeTab } = useStore();
+  const { tab, changeTab } = useStoreTab();
 
   return (
     <S.Container>

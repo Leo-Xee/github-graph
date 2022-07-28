@@ -1,20 +1,15 @@
 import create from "zustand";
 
 export type Tab = "followings" | "followers" | "repositories" | "stars";
-export type Theme = "light" | "dark";
 
 type RootState = {
-  theme: Theme;
-  changeTheme: (theme: Theme) => void;
   tab: Tab;
   changeTab: (tab: Tab) => void;
 };
 
-const useStore = create<RootState>((set) => ({
-  theme: "light",
-  changeTheme: (theme) => set(() => ({ theme })),
+const useStoreTheme = create<RootState>((set) => ({
   tab: "followings",
   changeTab: (tab) => set(() => ({ tab })),
 }));
 
-export default useStore;
+export default useStoreTheme;
