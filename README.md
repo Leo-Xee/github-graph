@@ -12,7 +12,7 @@
 
 <br/>
 
-## 🔥 소개 ( Demo )
+## 🔥 소개 ( [Demo](https://github-graph.vercel.app/) )
 
 **GitHub Graph는 GitHub API를 활용해서 검색한 GitHub 유저의 정보를 리스트와 그래프 뷰로 확인할 수 있는 애플리케이션입니다.**
 
