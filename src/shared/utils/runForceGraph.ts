@@ -100,8 +100,8 @@ const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
       select<SVGForeignObjectElement, ForcedNode>(this)
         .attr("width", 80)
         .attr("height", 80)
-        .style("border-radius", "50%")
         .append("xhtml:img")
+        .style("border-radius", "50%")
         .attr("src", () => userData.user?.avatarUrl || "");
     });
 
