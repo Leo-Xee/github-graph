@@ -25,7 +25,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <div>
-      <ThemeButton type="button" onClick={() => toggleTheme()}>
+      <ThemeButton type="button" aria-label="다크모드 버튼" onClick={() => toggleTheme()}>
         {theme === "light" ? (
           <FaSun size={30} color="#f59f00" />
         ) : (
