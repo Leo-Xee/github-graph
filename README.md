@@ -14,9 +14,9 @@
 
 ## 🔥 소개 ( Demo )
 
-**GitHub-Graph는 검색한 GitHub 유저의 정보를 리스트와 그래프 뷰로 확인할 수 있는 기능을 제공하는 애플리케이션입니다.**
+**GitHub Graph는 GitHub API를 활용해서 검색한 GitHub 유저의 정보를 리스트와 그래프 뷰로 확인할 수 있는 애플리케이션입니다.**
 
-이 프로젝트는 제가 현재 사용하고 있는 메모앱인 [Obsidian](https://obsidian.md/)의 그래프 뷰를 인상 깊게 느껴서 이를 적용해 볼 아이템을 고민해보다가 GitHub 유저의 정보에 적용하면 사용자에게 새로움과 유용함을 제공할 수 있을 것 같아서 시작하게 된 프로젝트입니다. 초기에는 GitHub에서 제공하는 REST API를 사용해서 구현하다가 Over-Fetching 문제를 겪어보고 너무 비효율적이라고 생각해서 GraphQL을 사용하는 것으로 변경했습니다. 하지만 GraphQL 사용이 처음이다보니 전반적인 동작 방식을 익힐 필요가 있다고 판단했습니다. 그래서 공식 문서과 간단한 강의를 참고해서 [영화 애플리케이션](https://github.com/Leo-Xee/graphql-movie-app)을 구현해본 뒤 프로젝트를 다시 진행했습니다. 또한 API의 타입 선언의 자동화를 위해서 [GraphQL Code Generateor](https://www.graphql-code-generator.com/)를 사용했으며 이를 통해 생성된 API 타입 선언 파일(`generated.ts`)은 큰 용량 때문에 Git에 포함하지는 않았습니다.
+이 프로젝트는 제가 현재 사용하고 있는 메모앱인 [Obsidian](https://obsidian.md/)의 그래프 뷰를 보고 인상 깊게 느껴서 이를 적용해 볼 아이템을 고민해보다가 GitHub에 적용하면 사용자에게 새로운 경험을 제공할 수 있을 것 같아서 시작하게 된 프로젝트입니다. 초기에는 GitHub에서 제공하는 REST API기반으로 구현하다가 Over-Fetching 문제를 겪어보고는 비효율적이라고 생각해서 GraphQL기반으로 변경했습니다. 하지만 GraphQL 사용이 처음이다보니 전반적인 동작 방식을 익힐 필요가 있다고 판단해서 공식 문서와 간단한 강의를 참고해서 [영화 애플리케이션](https://github.com/Leo-Xee/graphql-movie-app)을 구현해본 뒤 프로젝트를 다시 진행했습니다. 또한 API 타입 선언의 자동화를 위해서 [GraphQL Code Generateor](https://www.graphql-code-generator.com/)를 사용했으며 이를 통해 생성된 타입 선언 파일(`generated.ts`)은 큰 용량 때문에 Git에 포함하지는 않았습니다.
 
 <br/>
 
@@ -101,50 +101,53 @@ $ yarn dev
 
 ## ⚙️ 주요 내용
 
-### ✅ Github 유저 검색어 추천 및 자동완성
-![search](https://user-images.githubusercontent.com/21965795/181534472-6aa1945f-b249-4905-8c9b-04425e8c3ec5.gif)
+### ✅ GitHub 유저 검색어 추천 및 자동완성
 
+![search](https://user-images.githubusercontent.com/21965795/181534472-6aa1945f-b249-4905-8c9b-04425e8c3ec5.gif)
 
 GitHub 유저 검색 시에 검색 및 로딩 아이콘이 활성화되고 최대 5개의 추천 검색어를 보여줍니다. 사용자는 추천 검색어를 클릭하거나 검색창에 입력한 아이디로 유저를 검색할 수 있습니다. 또한 추천 검색어를 위한 API 요청이 무분별하게 발생하는 문제를 방지하고자 관련 함수에 디바운스를 적용했습니다.
 
 ### ✅ Tab 별 리스트 뷰와 무한스크롤
+
 ![list](https://user-images.githubusercontent.com/21965795/181534737-0774433c-5f2f-43c8-81ed-5d4cbdfe7f91.gif)
 
-유저 검색이 실행되면 잠시 스켈레톤 UI를 보여준 후에 검색한 유저의 기본 정보와 Followings, Followers, Repositories, StarredRepositories 리스트를 Tab으로 구분해서 보여줍니다. 각 리스트는 초기 지연 시간을 고려해서 최초에 20개씩만 보여주고 사용자가 스크롤 하다가 리스트의 중간에 도달하는 것을 Intersection Observer로 감지해서 그 다음 20개의 데이터를 보여주도록 해서 무한스크롤을 구현했습니다. 그리고 리스트의 아이템을 클릭하면 해당 유저나 레포지토리 Github 주소로 이동하도록 했습니다.
+유저 검색이 실행되면 잠시 스켈레톤 UI를 보여준 후에 검색한 유저의 기본 정보와 Followings, Followers, Repositories, StarredRepositories 리스트를 Tab 별로 구분해서 보여줍니다. 각 리스트는 초기 지연 시간을 고려해서 최초에는 20개만 보여주고 사용자가 스크롤 하다가 리스트의 중간에 도달하는 것을 Intersection Observer로 감지해서 그 다음 20개의 데이터를 보여주도록 무한스크롤을 구현했습니다. 그리고 리스트의 아이템을 클릭하면 해당 유저나 레포지토리 GitHub 주소로 이동하도록 했습니다.
 
-추가로 Tab 변경 시에 Tab 상태를 의존하고 있는 컴포넌트만 리렌더링되기를 원했기 때문에 전역 상태관리 라이브러리 중 하나인 Zustand를 사용해서 구현했습니다.
+Tab 변경 시에는 Tab 상태를 의존하고 있는 컴포넌트만 리렌더링되기를 원했기 때문에 전역 상태관리 라이브러리 중 하나인 Zustand를 사용해서 구현했습니다.
 
 ### ✅ D3.js를 사용한 그래프 뷰
+
 ![view](https://user-images.githubusercontent.com/21965795/181534925-4f10139d-bf7c-4a7e-b801-05a15245db85.gif)
 
-[D3.js](https://d3js.org/)는 데이터를 기반으로 DOM을 조작하는 라이브러리이며 다양한 모듈을 제공합니다. 이 중에 [Force](https://github.com/d3/d3-force/tree/v3.0.0), [Selections](https://github.com/d3/d3-selection/tree/v3.0.0), [Zoom](https://github.com/d3/d3-zoom/tree/v3.0.0) 모듈을 사용해서 그래프 뷰를 구현했으며 Tab의 상태에 따라서 다른 데이터를 기반으로 최대 100개의 노드를 보여줍니다.
+[D3.js](https://d3js.org/)는 데이터를 기반으로 DOM을 조작하는 라이브러리이며 다양한 모듈을 제공합니다. 이 중에 [Force](https://github.com/d3/d3-force/tree/v3.0.0), [Selections](https://github.com/d3/d3-selection/tree/v3.0.0), [Zoom](https://github.com/d3/d3-zoom/tree/v3.0.0) 모듈을 사용해서 그래프 뷰를 구현했으며 Tab의 상태에 따라서 다른 결과를 최대 100개의 노드로 보여줍니다.
 
 그래프 뷰의 동작은 `runForceGraph` 함수가 담당하며 다음 과정을 통해 실행됩니다.
 
 1. 데이터 필터링
 
-   - Github Graph의 그래프 뷰는 Tab의 상태에 따라 다른 결과를 보여줘야하기 때문에 데이터를 필터링해서 그래프 뷰를 위한 시뮬레이션이 필요로하는 데이터 형식으로 구성해야하는데 이를 `FilterData` 함수에서 처리합니다.
-   - 검색된 사용자 노드를 중심으로 그래프 뷰를 보여주길 원했기 때문에 `FilterData` 함수에서 검색된 `userData`를 첫 요소로써 삽입해주는 작업을 추가했습니다.
+   - GitHub Graph의 그래프 뷰는 Tab의 상태에 따라 다른 결과를 보여줘야합니다. 그래서 상태별로 데이터를 필터링해서 시뮬레이션이 필요로하는 데이터 형식으로 구성하는 작업을 `FilterData` 함수에서 처리합니다.
+   - 검색된 사용자 노드를 중심으로 그래프 뷰를 보여주길 원했기 때문에 `FilterData` 함수에서 검색된 유저의 정보인 `userData`를 첫 요소로 삽입합니다.
 
 2. 시뮬레이션 생성 및 노드와 간선 등록
 
    - 시뮬레이션을 생성하고 필터링한 데이터를 노드(Nodes), 간선(Links)으로 등록합니다.
-   - `svg` 요소 내부에 노드와 간선을 `g`요소를 사용해서 따로 그룹화하고 노드들 중에 검색된 사용자 노드와 그 외의 노드를 class 속성을 다르게 부여해서 구분한 다음 따로 스타일을 추가했습니다.
-   - 데이터가 Followings나 Followers인 경우에는 해당 유저의 Followers의 수에 따라서 다른 스타일을 지정했고 데이터가 Repositories나 StarredRepositories인 경우에는 해당 레포지토리의 Star 개수에 따라서 다른 스타일을 지정했습니다.
+   - `svg` 요소 내부에 노드와 간선을 `g` 요소를 사용해서 따로 그룹화하고 노드들 중에 검색된 사용자 노드와 그 외의 노드들을 class 속성으로 구분한 뒤 서로 다른 스타일을 적용합니다.
+   - 데이터가 Followings나 Followers인 경우에는 해당 유저의 Followers의 수에 따라서 다른 스타일을 지정하고 데이터가 Repositories나 StarredRepositories인 경우에는 해당 레포지토리의 Star 개수에 따라서 다른 스타일을 지정합니다.
 
 3. Zoom 생성 및 등록
 
-   - Zoom 기능을 추가하기 위해서 Zoom 객체를 생성하고 `svg` 요소에 이벤트를 등록했습니다.
-   - Zoom의 scale이 너무 커지거나 작아지면 사용성에 문제가 있기 때문에 적절한 최소값과 최대값을 설정했습니다.
+   - Zoom 기능을 추가하기 위해서 Zoom 객체를 생성하고 `svg` 요소에 이벤트를 등록합니다.
+   - Zoom의 scale이 너무 커지거나 작아지면 사용성에 문제가 있기 때문에 적절한 최소값과 최대값을 설정합니다.
 
 4. Drag 생성 및 등록
 
-   - Drag 기능을 추가하기 위해서 Drag 객체를 생성하고 `svg` 요소에 이벤트를 등록했습니다.
+   - Drag 기능을 추가하기 위해서 Drag 객체를 생성하고 `svg` 요소에 이벤트를 등록합니다.
 
 5. Graph 컴포넌트가 Unmount될 때, 시뮬레이션 정지 및 DOM 제거
-   - D3.js는 DOM을 직접 조작하기 때문에 상태 기반으로 DOM을 조작하는 React.js에서 사용할 때에는 무조건 해당 컴포넌트가 Unmount 될 때 시뮬레이션의 계산을 정지하고 추가한 DOM 요소를 제거해줘야합니다. 그래서 관련 함수를 `runForceGraph` 함수의 반환값으로 작성해서 해당 컴포넌트에서 Unmount 시에 실행할 수 있도록 했습니다.
+   - D3.js는 DOM을 직접 조작하기 때문에 상태 기반으로 DOM을 조작하는 React.js에서 사용할 때에는 무조건 해당 컴포넌트가 Unmount 될 때 시뮬레이션의 계산을 정지하고 추가한 DOM 요소를 제거해줘야합니다. 그래서 관련 함수를 `runForceGraph` 함수의 반환값으로 작성했고 이를 Unmount 시에 실행합니다.
 
 ### ✅ 다크모드
+
 ![dark](https://user-images.githubusercontent.com/21965795/181535321-9efbfaba-2b02-4a17-b90b-8a7cf5d5ee9a.gif)
 
 우측 상단의 다크모드 버튼을 클릭해서 애플리케이션의 테마를 변경할 수 있습니다. 이를 위해서 Emotion의 테마 기능을 사용해서 테마별 변수와 스타일을 `theme.ts`에서 따로 지정했고 Zustand를 통해서 상태를 관리했습니다.
@@ -189,7 +192,9 @@ Graphql을 처음 사용하는지라 inline Fragment에 대해서 이해 하지 
 
 text, image
 
-# 🌐 링크
+<br/>
+
+## 🌐 링크
 
 - [Web VSCode](https://github.dev/Leo-Xee/github-graph)
 - [Figma](https://www.figma.com/file/FyKmTZFpnrUPGQKMn9QRzH/Github-Graph?node-id=0%3A1)
