@@ -2,6 +2,8 @@ import React from "react";
 import { css, Global, Theme } from "@emotion/react";
 
 const style = (theme: Theme) => css`
+  @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
   /* reset.css */
   * {
     padding: 0;
@@ -57,6 +59,10 @@ const style = (theme: Theme) => css`
   ul,
   li {
     list-style: none;
+  }
+
+  * {
+    font-family: "Spoqa Han Sans Neo", "sans-serif";
   }
 `;
 
