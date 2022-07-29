@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack --config webpack.config.js --mode production",
+    "build": "npm run generate && webpack --config webpack.config.js --mode production",
     "test": "jest --watchAll",
     "generate": "graphql-codegen -r dotenv/config"
   },
