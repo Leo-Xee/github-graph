@@ -67,7 +67,7 @@ const runForceGraph: RunForceGraph = (targetElement, baseData, userData) => {
         .append<SVGTextElement>("text")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "middle")
+        .attr("dominant-baseline", "middle")
         .style("font-size", "1.6rem")
         .style("user-select", "none")
         .text(login || name)
