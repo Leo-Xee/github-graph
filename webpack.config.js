@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ForkCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
@@ -30,6 +31,7 @@ module.exports = {
         },
       ],
     }),
+    new BundleAnalyzerPlugin(),
     new ForkCheckerWebpackPlugin(),
     new webpack.ProvidePlugin({
       process: "process/browser.js",
