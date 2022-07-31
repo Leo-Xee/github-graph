@@ -19,6 +19,7 @@ export const Tab = styled.li<TabProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 4px;
   font-size: 1.4rem;
   cursor: pointer;
   border-bottom: ${({ isSelected, theme }) => isSelected && `4px solid ${theme["icon-hover"]}`};
