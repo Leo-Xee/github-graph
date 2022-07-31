@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useCallback, useLayoutEffect } from "react";
+import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import _ from "lodash";
@@ -16,12 +16,6 @@ function Search() {
   const [searchUser, { data, loading }] = useSearchUsersLazyQuery({
     variables: { keyword: input },
   });
-
-  // useLayoutEffect(() => {
-  //   if (username) {
-  //     setInput(username);
-  //   }
-  // }, []);
 
   const debouncer = useCallback(_.debounce(searchUser, 500), []);
 
