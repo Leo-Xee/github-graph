@@ -6,10 +6,10 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import * as S from "./RepoItem.style";
-import "dayjs/locale/en";
+import "dayjs/locale/ko";
 
 dayjs().format();
-dayjs.locale("en");
+dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 type RepoItemProps = {
@@ -51,8 +51,8 @@ const RepoItem = forwardRef<HTMLLIElement, RepoItemProps>(({ repo }, ref) => {
               <span>{repo?.forkCount}</span>
             </S.InfoItem>
           )}
-          {repo?.pushedAt && <S.InfoItem>Updated {dayjs(repo?.pushedAt).fromNow()}</S.InfoItem>}
-          {repo?.updatedAt && <S.InfoItem>Updated {dayjs(repo?.updatedAt).fromNow()}</S.InfoItem>}
+          {repo?.pushedAt && <S.InfoItem>{dayjs(repo?.pushedAt).fromNow()}에 수정됨</S.InfoItem>}
+          {repo?.updatedAt && <S.InfoItem>{dayjs(repo?.updatedAt).fromNow()}에 수정됨</S.InfoItem>}
         </S.InfoList>
       </a>
     </S.Container>
