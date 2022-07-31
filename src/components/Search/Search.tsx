@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import { BiSearch } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
-import _ from "lodash";
+import debounce from "lodash/debounce";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useSearchUsersLazyQuery } from "@/graphql/generated";
@@ -17,7 +17,7 @@ function Search() {
     variables: { keyword: input },
   });
 
-  const debouncer = useCallback(_.debounce(searchUser, 500), []);
+  const debouncer = useCallback(debounce(searchUser, 500), []);
 
   const debounceFn = async (value: string) => {
     try {
