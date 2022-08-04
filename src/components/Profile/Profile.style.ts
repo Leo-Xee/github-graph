@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   width: 90%;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export const Profile = styled.div`

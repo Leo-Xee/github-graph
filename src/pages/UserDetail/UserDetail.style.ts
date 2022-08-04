@@ -13,7 +13,7 @@ export const Board = styled.section`
   padding-top: 90px;
   background-color: ${({ theme }) => theme["board-bg"]};
   box-shadow: ${({ theme }) => theme["box-shadow"]};
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export const ErrorMessage = styled.h1`
